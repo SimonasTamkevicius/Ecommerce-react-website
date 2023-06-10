@@ -15,11 +15,15 @@ const NavBar = () => {
 
   const navlinks = [
     {
+      title: 'HOME',
+      link: '/home'
+    },
+    {
       title: 'SHOP ALL',
       link: '/ShopPage'
     },
     {
-      title: 'BACELETS',
+      title: 'BRACELETS',
       link: '/bracelets',
     },
     {
@@ -33,10 +37,6 @@ const NavBar = () => {
     {
       title: 'ABOUT',
       link: '/about',
-    },
-    {
-      title: 'CONTACT',
-      link: '/contact',
     },
   ];
 
@@ -70,12 +70,26 @@ const NavBar = () => {
     mobileFormRef.current.reset();
   };  
 
-  const handleLinkClick = (link) => {
-    if (link.title === 'SHOP ALL')
-    productDispatch({
-      type: "CLEAR_FILTERS"
-    });
-  }
+  const handleLinkClick = (event, link) => {
+    event.preventDefault();
+    if (link.title === 'SHOP ALL') {
+      productDispatch({
+        type: "CLEAR_FILTERS"
+      });
+      navigate('/ShopPage');
+    } else if (link.title === 'BRACELETS' || link.title === 'NECKLACES' || link.title === 'RINGS') {
+      const strippedTitle = link.title.slice(0, -1);
+      const inputValue = strippedTitle.toLowerCase();
+      const capitalizedInputValue = inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
+      productDispatch({
+        type: "FILTER_BY_SEARCH",
+        payload: capitalizedInputValue,
+      });
+      navigate('/ShopPage');
+    } else if (link.title === 'HOME') {
+      navigate('/');
+    }
+  };  
 
   return (
     <div>
@@ -145,7 +159,9 @@ const NavBar = () => {
               </svg>
             </div>
             }
-            <img width={40} src="/userIcon.png" alt="User Icon" />
+            <Link to='UserProfile'>
+              <img width={40} src="/userIcon.png" alt="User Icon" />
+            </Link>
           </div>
         </div>
       </div>
@@ -176,11 +192,16 @@ const NavBar = () => {
               <div className="p-4 mt-20">
                 {/* Menu contents */}
                 {navlinks.map((link, index) => (
-                  <Link to={link.link} className="text" key={index} style={{ textDecoration: 'none' }}>
+                  <Link
+                    to={link.link}
+                    className="text"
+                    key={index}
+                    style={{ textDecoration: 'none' }}
+                    onClick={(event) => handleLinkClick(event, link)}
+                  >
                     <p
                       className="block py-3 px-4 text-gray-800 hover:bg-gray-200"
                       onClick={() => {
-                        handleLinkClick(link);
                         handleMenu();
                       }}
                     >
@@ -199,7 +220,7 @@ const NavBar = () => {
         <div className="hidden lg:block bg-slate-200 pb-2 pt-4">
           <div className="justify-center flex items-baseline space-x-20">
           {navlinks.map((link, index) => (
-            <Link to={link.link} onClick={() => handleLinkClick(link)} className="text" key={index} style={{ textDecoration: 'none' }}>
+            <Link to={link.link} onClick={(event) => handleLinkClick(event, link)} className="text" key={index} style={{ textDecoration: 'none' }}>
               <p className="px-10 text-gray-900 text-sm hover:text-slate-500">
                 {link.title}
               </p>

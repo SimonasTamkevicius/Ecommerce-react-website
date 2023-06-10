@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { TbSquareArrowLeft, TbSquareArrowRight } from 'react-icons/tb';
+import { CartState } from '../context/Context';
 
 const HomePage = () => {
+
+  const {
+    productDispatch
+  } = CartState()
+
   const categories = [
     {
       image: '/beadBracelet.jpg.webp',
-      title: 'BACELETS',
+      title: 'BRACELETS',
       link: '/bracelets',
     },
     {
@@ -22,6 +28,7 @@ const HomePage = () => {
   ];
 
   const [activeIndex, setActiveIndex] = useState(0);
+  const navigate = useNavigate();
 
   const handleNext = () => {
     setActiveIndex((prevIndex) => (prevIndex + 1) % categories.length);
@@ -30,6 +37,18 @@ const HomePage = () => {
   const handlePrevious = () => {
     setActiveIndex((prevIndex) => (prevIndex - 1 + categories.length) % categories.length);
   };
+
+  const handleClick = (title) => (e) => {
+    e.preventDefault();
+    const strippedTitle = title.slice(0, -1);
+    const inputValue = strippedTitle.toLowerCase();
+    const capitalizedInputValue = inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
+    productDispatch({
+      type: "FILTER_BY_SEARCH",
+      payload: capitalizedInputValue,
+    });
+    navigate('/ShopPage');
+  };  
 
   return (
     <>
@@ -50,7 +69,11 @@ const HomePage = () => {
                   key={index}
                   className={`category ${index === activeIndex ? 'active block' : 'hidden'}`}
                 >
-                  <Link className='block py-2 px-4 underline text-center text-gray-800 hover:text-gray-500' to={category.link}>
+                  <Link
+                    className='block py-2 px-4 underline text-center text-gray-800 hover:text-gray-500'
+                    to={category.link}
+                    onClick={handleClick(category.title)}
+                  >
                     {category.image && <img src={category.image} alt={category.title} className='mb-2 w-full h-full' />}
                     {category.title}
                   </Link>
@@ -75,6 +98,7 @@ const HomePage = () => {
                 <Link
                   className='block py-2 px-10 underline text-center text-gray-800 hover:text-gray-500'
                   to={category.link}
+                  onClick={handleClick(category.title)}
                 >
                     {category.image && <img src={category.image} alt={category.title} className='mb-2 w-full h-full' />}
                     {category.title}

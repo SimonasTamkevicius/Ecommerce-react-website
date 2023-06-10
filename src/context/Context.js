@@ -14,7 +14,7 @@ const Context = ({ children }) => {
     },
     {
       id: '2',
-      name: 'Gold necklace',
+      name: 'Gold Necklace',
       price: 19.99,
       image: '/beadNecklace.jpg',
       inStock: 5,
