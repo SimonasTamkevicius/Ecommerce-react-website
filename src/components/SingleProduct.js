@@ -5,11 +5,10 @@ const SingleProduct = ({ prod }) => {
   const {
     state: { cart },
     dispatch,
-    productState: { inStock }
   } = CartState();
 
   return (
-    <div className="max-w-s sm:max-w-sm bg-white border border-gray-200 shadow dark:bg-gray-200">
+    <div className="max-w-sm sm:max-w-sm bg-white border border-gray-200 shadow dark:bg-gray-200">
       <a href="/">
         <img src={prod.image} alt={prod.name} className="mb-2 w-full h-auto" />
       </a>
@@ -21,7 +20,7 @@ const SingleProduct = ({ prod }) => {
           ${prod.price}
         </p>
         <p className="mb-3 text-sm sm:text-base font-normal text-gray-500">
-            {inStock} In Stock
+            {prod.inStock} In Stock
         </p>
         {cart.some((p) => p.id === prod.id) ? (
           <button

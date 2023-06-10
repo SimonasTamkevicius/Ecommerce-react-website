@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 const NavBar = () => {
   const [open, setOpen] = useState(false);
   const formRef = useRef(null);
+  const mobileFormRef = useRef(null);
 
   const {
     state: { cart },
@@ -66,13 +67,20 @@ const NavBar = () => {
       payload: capitalizedInputValue,
     });
     navigate('/ShopPage');
-    formRef.current.reset();
+    mobileFormRef.current.reset();
   };  
+
+  const handleLinkClick = (link) => {
+    if (link.title === 'SHOP ALL')
+    productDispatch({
+      type: "CLEAR_FILTERS"
+    });
+  }
 
   return (
     <div>
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between px-14 pt-14">
+        <div className="flex items-center justify-between pt-10 md:px-14 md:pt-14">
           {/* hamburger button */}
           <div className="-mr-2 flex lg:hidden">
             <button
@@ -142,7 +150,7 @@ const NavBar = () => {
         </div>
       </div>
       <div className="flex items-center justify-center pt-10">
-        <form ref={formRef} className="lg:hidden block" onSubmit={handleMobileFormSubmit}>
+        <form ref={mobileFormRef} className="lg:hidden block" onSubmit={handleMobileFormSubmit}>
           <div className="flex items-center">
               <input
                 className="border-2 p-1 border-black w-full sm:w-80 rounded-none focus:outline-none"
@@ -171,7 +179,10 @@ const NavBar = () => {
                   <Link to={link.link} className="text" key={index} style={{ textDecoration: 'none' }}>
                     <p
                       className="block py-3 px-4 text-gray-800 hover:bg-gray-200"
-                      onClick={handleMenu}
+                      onClick={() => {
+                        handleLinkClick(link);
+                        handleMenu();
+                      }}
                     >
                       {link.title}
                     </p>
@@ -188,7 +199,7 @@ const NavBar = () => {
         <div className="hidden lg:block bg-slate-200 pb-2 pt-4">
           <div className="justify-center flex items-baseline space-x-20">
           {navlinks.map((link, index) => (
-            <Link to={link.link} className="text" key={index} style={{ textDecoration: 'none' }}>
+            <Link to={link.link} onClick={() => handleLinkClick(link)} className="text" key={index} style={{ textDecoration: 'none' }}>
               <p className="px-10 text-gray-900 text-sm hover:text-slate-500">
                 {link.title}
               </p>

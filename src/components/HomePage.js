@@ -38,7 +38,7 @@ const HomePage = () => {
       <div className='flex justify-center pt-10 lg:hidden'>
         <div className='flex justify-between'>
           <button
-            className={`category ${activeIndex === 0 ? 'text-gray-500 p-5' : 'p-5'}`}
+            className={`category ${activeIndex === 0 ? 'text-gray-500 pl-4' : 'pl-4'}`}
             onClick={handlePrevious}
             disabled={activeIndex === 0}
           >
@@ -58,7 +58,7 @@ const HomePage = () => {
               ))}
             </div>
           <button
-            className={`category ${activeIndex === categories.length - 1 ? 'text-gray-500 p-5' : 'p-5'}`}
+            className={`category ${activeIndex === categories.length - 1 ? 'text-gray-500 pr-4' : 'pr-4'}`}
             onClick={handleNext}
             disabled={activeIndex === categories.length - 1}
           >

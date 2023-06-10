@@ -25,7 +25,7 @@ const Filters = () => {
           checked={sort === "lowToHigh" ? true : false}
           className="mr-2"
         />
-        <label htmlFor="lowToHigh" className="text-sm">
+        <label htmlFor="lowToHigh" className="text-md md:text-sm">
           Ascending
         </label>
       </div>
@@ -44,7 +44,7 @@ const Filters = () => {
           checked={sort === "highToLow" ? true : false}
           className="mr-2"
         />
-        <label htmlFor="highToLow" className="text-sm">
+        <label htmlFor="highToLow" className="text-md md:text-sm">
           Descending
         </label>
       </div>
@@ -60,13 +60,13 @@ const Filters = () => {
           checked={byStock}
           className="mr-2"
         />
-        <label htmlFor="includeOutOfStock" className="text-sm">
+        <label htmlFor="includeOutOfStock" className="text-md md:text-sm">
           Include Out of Stock
         </label>
       </div>
-      <div className='pt-3 relative'>
+      <div className='md:pt-3 relative'>
         <button
-            className="px-4 py-2 text-sm bg-gray-200 text-gray-800 rounded hover:bg-gray-400 transition-colors ease-in-out duration-200"
+            className="px-4 py-2 text-md md:text-sm bg-gray-200 text-gray-800 rounded hover:bg-gray-400 transition-colors ease-in-out duration-200"
             onClick={() =>
               productDispatch({
                 type: "CLEAR_FILTERS",
