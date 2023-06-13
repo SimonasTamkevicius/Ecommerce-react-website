@@ -9,9 +9,13 @@ const SingleProduct = ({ prod }) => {
 
   return (
     <div className="max-w-sm sm:max-w-sm bg-white border border-gray-200 shadow dark:bg-gray-200">
-      <a href="/">
-        <img src={prod.image} alt={prod.name} className="mb-2 w-full h-auto" />
-      </a>
+      <div className="w-100 h-80">
+        <img
+          src={prod.image}
+          alt={prod.name}
+          className="object-cover w-full h-full hover:cursor-pointer"
+        />
+      </div>
       <div className="p-3 sm:p-5">
         <h5 className="mb-2 text-lg sm:text-2xl font-bold tracking-tight text-gray-900 dark:text-black">
           {prod.name}
@@ -20,7 +24,7 @@ const SingleProduct = ({ prod }) => {
           ${prod.price}
         </p>
         <p className="mb-3 text-sm sm:text-base font-normal text-gray-500">
-            {prod.inStock} In Stock
+          {prod.inStock} In Stock
         </p>
         {cart.some((p) => p.id === prod.id) ? (
           <button

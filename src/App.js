@@ -4,6 +4,7 @@ import Cart from "./components/Cart";
 import NavBar from "./components/NavBar";
 import ShopPage from "./components/ShopPage";
 import UserProfile from "./components/UserProfile";
+import About from "./components/About";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Route path="Cart" element={<Cart />} />
             <Route path="ShopPage" element={<ShopPage />} />
             <Route path="UserProfile" element={<UserProfile />} />
+            <Route path="About" element={<About />} />
         </Routes>
       </div>
     </BrowserRouter>

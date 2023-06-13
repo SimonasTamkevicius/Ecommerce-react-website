@@ -36,7 +36,7 @@ const NavBar = () => {
     },
     {
       title: 'ABOUT',
-      link: '/about',
+      link: '/About',
     },
   ];
 
@@ -88,6 +88,8 @@ const NavBar = () => {
       navigate('/ShopPage');
     } else if (link.title === 'HOME') {
       navigate('/');
+    } else if (link.title === 'ABOUT') {
+      navigate('/About')
     }
   };  
 
@@ -218,10 +220,10 @@ const NavBar = () => {
       <div className="mx-auto lg:px-20">
         {/* navlinks */}
         <div className="hidden lg:block bg-slate-200 pb-2 pt-4">
-          <div className="justify-center flex items-baseline space-x-20">
+          <div className="justify-between flex items-baseline">
           {navlinks.map((link, index) => (
             <Link to={link.link} onClick={(event) => handleLinkClick(event, link)} className="text" key={index} style={{ textDecoration: 'none' }}>
-              <p className="px-10 text-gray-900 text-sm hover:text-slate-500">
+              <p className="lg:px-10 text-gray-900 text-sm hover:text-slate-500">
                 {link.title}
               </p>
             </Link>

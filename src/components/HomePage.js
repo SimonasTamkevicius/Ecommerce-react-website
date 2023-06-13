@@ -52,7 +52,7 @@ const HomePage = () => {
 
   return (
     <>
-      <h1 className='text-4xl md:text-5xl flex justify-center pt-20'>Shop by Category</h1>
+      <h1 className='text-4xl md:text-5xl flex justify-center pt-10'>Shop by Category</h1>
       {/* mobile gallery */}
       <div className='flex justify-center pt-10 lg:hidden'>
         <div className='flex justify-between'>
