@@ -24,7 +24,7 @@ const SingleProduct = ({ prod }) => {
           <p className="text-lg sm:text-base font-semibold text-black">
             ${prod.price}
           </p>
-          <p className="text-sm sm:text-base my-2 font-normal text-gray-500">
+          <p className={prod.inStock ? 'text-sm sm:text-base my-2 font-normal text-green-600' : 'text-sm sm:text-base my-2 font-normal text-red-600'}>
             {prod.inStock} In Stock
           </p>
         </div>

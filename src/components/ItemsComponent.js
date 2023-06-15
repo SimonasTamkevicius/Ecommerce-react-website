@@ -11,25 +11,29 @@ const ItemsComponent = () => {
 
   const reorderProducts = () => {
     let sortedProducts = products;
-
+  
     if (sort) {
       sortedProducts = sortedProducts.sort((a, b) =>
         sort === 'lowToHigh' ? a.price - b.price : b.price - a.price
       );
     }
-
+  
     if (!byStock) {
       sortedProducts = sortedProducts.filter((prod) => prod.inStock);
     }
-
+  
     if (bySearch) {
       sortedProducts = sortedProducts.filter((prod) =>
         prod.name.includes(bySearch)
       );
     }
-
+  
+    if (sortedProducts.length === 0) {
+      sortedProducts = [{ name: 'Nothing matched your search' }];
+    }
+  
     return sortedProducts;
-  };
+  };  
 
   return (
     <div className='flex flex-col lg:flex-row pt-10 px-6 md:pr-14 md:pl-20 lg:px-12'>

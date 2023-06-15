@@ -48,14 +48,14 @@ const CartData = () => {
                 <h1 className="pt-3 md:px-5 text-center text-2xl md:text-4xl">Shopping Cart ({totalQuantity} items)</h1>
               )}
               {/* Cart Items */}
-              <ul id="cart-items" className="md:pt-10 md:px-5 divide-y divide-gray-300">
+              <ul id="cart-items" className="md:px-5 divide-y divide-gray-300">
                 {cart.map((prod) => (
                   <li key={prod.id} className="md:flex md:justify-between py-5 w-full md:space-x-4">
-                    <div className="flex items-center pb-4">
+                    <div className="flex flex-col md:flex-row md:items-center pb-4">
                       <div className="flex-shrink-0">
                         <img className="w-20 h-20" src={prod.image} alt={prod.name} />
                       </div>
-                      <div className="flex-1 pl-10">
+                      <div className="flex-1 pt-3 md:py-0 md:pl-10">
                         <p className="text-lg md:text-md font-semibold text-black truncate">{prod.name}</p>
                         <p className="text-md md:text-sm text-gray-700 truncate">{prod.inStock} left in stock</p>
                       </div>
