@@ -1,5 +1,5 @@
-import React from 'react';
-import { CartState } from '../context/Context';
+import React from "react";
+import { CartState } from "../context/Context";
 
 const Filters = () => {
   const {
@@ -26,7 +26,7 @@ const Filters = () => {
           className="mr-2"
         />
         <label htmlFor="lowToHigh" className="text-md md:text-sm">
-          Ascending
+          Low to High
         </label>
       </div>
       <div className="flex items-center mb-3">
@@ -45,7 +45,7 @@ const Filters = () => {
           className="mr-2"
         />
         <label htmlFor="highToLow" className="text-md md:text-sm">
-          Descending
+          High to Low
         </label>
       </div>
       <div className="flex items-center mb-3">
@@ -64,16 +64,16 @@ const Filters = () => {
           Include Out of Stock
         </label>
       </div>
-      <div className='flex justify-end md:pt-3'>
+      <div className="flex justify-end md:pt-3">
         <button
-            className="px-4 py-2 shadow-md text-md md:text-sm bg-gray-100 text-gray-800 rounded hover:bg-gray-300 transition-colors ease-in-out duration-100"
-            onClick={() =>
-              productDispatch({
-                type: "CLEAR_FILTERS",
-              })
-            }
+          className="px-4 py-2 shadow-md text-md md:text-sm bg-gray-100 text-gray-800 rounded hover:bg-gray-300 transition-colors ease-in-out duration-100"
+          onClick={() =>
+            productDispatch({
+              type: "CLEAR_FILTERS",
+            })
+          }
         >
-            Clear Filters
+          Clear Filters
         </button>
       </div>
     </div>

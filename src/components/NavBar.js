@@ -1,12 +1,15 @@
-import { CartState } from '../context/Context';
-import React, { useState, useRef } from 'react';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { CartState } from "../context/Context";
+import React, { useState, useRef } from "react";
+import { FaBars, FaTimes } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../utils/AuthContext";
 
 const NavBar = () => {
   const [open, setOpen] = useState(false);
   const formRef = useRef(null);
   const mobileFormRef = useRef(null);
+
+  const { user } = useAuth();
 
   const {
     state: { cart },
@@ -15,28 +18,28 @@ const NavBar = () => {
 
   const navlinks = [
     {
-      title: 'HOME',
-      link: '/home'
+      title: "HOME",
+      link: "/home",
     },
     {
-      title: 'SHOP ALL',
-      link: '/ShopPage'
+      title: "SHOP ALL",
+      link: "/ShopPage",
     },
     {
-      title: 'BRACELETS',
-      link: '/bracelets',
+      title: "BRACELETS",
+      link: "/bracelets",
     },
     {
-      title: 'NECKLACES',
-      link: '/necklaces',
+      title: "NECKLACES",
+      link: "/necklaces",
     },
     {
-      title: 'RINGS',
-      link: '/rings',
+      title: "RINGS",
+      link: "/rings",
     },
     {
-      title: 'ABOUT',
-      link: '/About',
+      title: "ABOUT",
+      link: "/About",
     },
   ];
 
@@ -49,49 +52,56 @@ const NavBar = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     const inputValue = e.target.elements.searchInput.value.toLowerCase();
-    const capitalizedInputValue = inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
+    const capitalizedInputValue =
+      inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
     productDispatch({
       type: "FILTER_BY_SEARCH",
       payload: capitalizedInputValue,
     });
-    navigate('/ShopPage');
+    navigate("/ShopPage");
     formRef.current.reset();
   };
-  
+
   const handleMobileFormSubmit = (e) => {
     e.preventDefault();
     const inputValue = e.target.elements.mobileSearchInput.value.toLowerCase();
-    const capitalizedInputValue = inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
+    const capitalizedInputValue =
+      inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
     productDispatch({
       type: "FILTER_BY_SEARCH",
       payload: capitalizedInputValue,
     });
-    navigate('/ShopPage');
+    navigate("/ShopPage");
     mobileFormRef.current.reset();
-  };  
+  };
 
   const handleLinkClick = (event, link) => {
     event.preventDefault();
-    if (link.title === 'SHOP ALL') {
+    if (link.title === "SHOP ALL") {
       productDispatch({
-        type: "CLEAR_FILTERS"
+        type: "CLEAR_FILTERS",
       });
-      navigate('/ShopPage');
-    } else if (link.title === 'BRACELETS' || link.title === 'NECKLACES' || link.title === 'RINGS') {
+      navigate("/ShopPage");
+    } else if (
+      link.title === "BRACELETS" ||
+      link.title === "NECKLACES" ||
+      link.title === "RINGS"
+    ) {
       const strippedTitle = link.title.slice(0, -1);
       const inputValue = strippedTitle.toLowerCase();
-      const capitalizedInputValue = inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
+      const capitalizedInputValue =
+        inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
       productDispatch({
         type: "FILTER_BY_SEARCH",
         payload: capitalizedInputValue,
       });
-      navigate('/ShopPage');
-    } else if (link.title === 'HOME') {
-      navigate('/');
-    } else if (link.title === 'ABOUT') {
-      navigate('/About')
+      navigate("/ShopPage");
+    } else if (link.title === "HOME") {
+      navigate("/");
+    } else if (link.title === "ABOUT") {
+      navigate("/About");
     }
-  };  
+  };
 
   return (
     <div>
@@ -113,7 +123,7 @@ const NavBar = () => {
             </button>
           </div>
           <div className="flex items-center">
-            <Link to='/'>
+            <Link to="/">
               <img
                 className="w-40 md:w-80"
                 src="/websiteLogoV2.png"
@@ -122,18 +132,44 @@ const NavBar = () => {
             </Link>
           </div>
           <div className="flex items-center">
-            <form ref={formRef} className="hidden lg:block" onSubmit={handleFormSubmit}>
+            <form
+              ref={formRef}
+              className="hidden lg:block"
+              onSubmit={handleFormSubmit}
+            >
               <input
                 className="border-2 p-1 border-black w-80 focus:outline-none"
                 type="text"
                 placeholder="Find your inspiration"
                 name="searchInput"
               />
-              <button type="submit" className="bg-black text-white border-2 border-black p-1 mr-20">
+              <button
+                type="submit"
+                className="bg-black text-white border-2 border-black p-1 mr-20"
+              >
                 SEARCH
               </button>
             </form>
-            <Link to='/cart'>
+            {/* Login and Register vs My Account and Logout  */}
+            {user.loggedIn ? (
+              <div className="flex flex-row space-x-3 mr-1">
+                <Link to="UserProfile" className="no-underline text-black">
+                {/* <img width={40} src="/userIcon.png" alt="User Icon" /> */}
+                  <p className="hover:cursor-pointer">My account</p>
+                </Link>
+                <p className="border-l-2 px-3 border-gray-600 hover:cursor-pointer">Logout</p>
+              </div>
+              ) : (
+                <div className="flex flex-row space-x-3 mr-1">
+                  <Link to="UserProfile" className="no-underline text-black">
+                    <p className="hover:cursor-pointer">Login</p>
+                  </Link>
+                  <Link to="Register" className="no-underline text-black">
+                    <p className="border-l-2 px-3 border-gray-600 hover:cursor-pointer">Register</p>
+                  </Link>
+                </div>
+              )}
+            <Link to="/cart">
               <button>
                 <img
                   width="40"
@@ -146,46 +182,62 @@ const NavBar = () => {
               <div className="opacity-0">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
                   <circle cx="10" cy="9" r="8" fill="white" />
-                  <text x="10" y="12" textAnchor="middle" fill="white" fontSize="10">
+                  <text
+                    x="10"
+                    y="12"
+                    textAnchor="middle"
+                    fill="white"
+                    fontSize="10"
+                  >
                     {cart.length}
                   </text>
                 </svg>
               </div>
-            ) : 
-            <div className="circle-container">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
-                <circle cx="10" cy="9" r="8" fill="red" />
-                <text x="10" y="12" textAnchor="middle" fill="white" fontSize="10">
-                  {cart.length}
-                </text>
-              </svg>
-            </div>
-            }
-            <Link to='UserProfile'>
-              <img width={40} src="/userIcon.png" alt="User Icon" />
-            </Link>
+            ) : (
+              <div className="circle-container">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+                  <circle cx="10" cy="9" r="8" fill="red" />
+                  <text
+                    x="10"
+                    y="12"
+                    textAnchor="middle"
+                    fill="white"
+                    fontSize="10"
+                  >
+                    {cart.length}
+                  </text>
+                </svg>
+              </div>
+            )}
           </div>
         </div>
       </div>
       <div className="flex items-center justify-center pt-10">
-        <form ref={mobileFormRef} className="lg:hidden block" onSubmit={handleMobileFormSubmit}>
+        <form
+          ref={mobileFormRef}
+          className="lg:hidden block"
+          onSubmit={handleMobileFormSubmit}
+        >
           <div className="flex items-center">
-              <input
-                className="border-2 p-1 border-black w-full sm:w-80 rounded-none focus:outline-none"
-                type="text"
-                placeholder="Find your inspiration"
-                name="mobileSearchInput"
-              />
-              <button type="submit" className="bg-black text-white p-1 border-2 border-black">
-                SEARCH
-              </button>
-            </div>
+            <input
+              className="border-2 p-1 border-black w-full sm:w-80 rounded-none focus:outline-none"
+              type="text"
+              placeholder="Find your inspiration"
+              name="mobileSearchInput"
+            />
+            <button
+              type="submit"
+              className="bg-black text-white p-1 border-2 border-black"
+            >
+              SEARCH
+            </button>
+          </div>
         </form>
       </div>
       {/* mobile menu */}
       <div
         className={`transition-opacity duration-300 ease-in-out ${
-          open ? 'opacity-100 visible' : 'opacity-0 invisible'
+          open ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       >
         {open && (
@@ -198,7 +250,7 @@ const NavBar = () => {
                     to={link.link}
                     className="text"
                     key={index}
-                    style={{ textDecoration: 'none' }}
+                    style={{ textDecoration: "none" }}
                     onClick={(event) => handleLinkClick(event, link)}
                   >
                     <p
@@ -221,18 +273,24 @@ const NavBar = () => {
         {/* navlinks */}
         <div className="hidden lg:block bg-slate-200 pb-2 pt-4">
           <div className="justify-between flex items-baseline">
-          {navlinks.map((link, index) => (
-            <Link to={link.link} onClick={(event) => handleLinkClick(event, link)} className="text" key={index} style={{ textDecoration: 'none' }}>
-              <p className="lg:px-10 text-gray-900 text-sm hover:text-slate-500">
-                {link.title}
-              </p>
-            </Link>
-          ))}
+            {navlinks.map((link, index) => (
+              <Link
+                to={link.link}
+                onClick={(event) => handleLinkClick(event, link)}
+                className="text"
+                key={index}
+                style={{ textDecoration: "none" }}
+              >
+                <p className="lg:px-10 text-gray-900 text-sm hover:text-slate-500">
+                  {link.title}
+                </p>
+              </Link>
+            ))}
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default NavBar;

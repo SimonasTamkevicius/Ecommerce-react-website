@@ -1,8 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import './index.css';
+import "./index.css";
 import App from "./App";
-import Context from "./context/Context";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const rootElement = document.getElementById("root");
@@ -10,8 +9,6 @@ const root = createRoot(rootElement);
 
 root.render(
   <React.StrictMode>
-    <Context>
-      <App />
-    </Context>
-  </React.StrictMode>,
+    <App />
+  </React.StrictMode>
 );

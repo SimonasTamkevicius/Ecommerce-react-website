@@ -1,11 +1,10 @@
-import React from 'react';
-import ItemsComponent from '../components/ItemsComponent';
-
+import React from "react";
+import ItemsComponent from "../components/ItemsComponent";
 
 const ShopPage = () => {
   return (
     <div>
-        <ItemsComponent />
+      <ItemsComponent />
     </div>
   );
 };

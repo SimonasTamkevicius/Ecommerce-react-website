@@ -1,12 +1,12 @@
-import React from 'react';
-import CartData from './CartData';
+import React from "react";
+import CartData from "./CartData";
 
 const Cart = () => {
   return (
     <div>
-        <CartData />
+      <CartData />
     </div>
-  )
-}
+  );
+};
 
-export default Cart
+export default Cart;
