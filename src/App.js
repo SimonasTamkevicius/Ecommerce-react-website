@@ -11,6 +11,7 @@ import Context from "./context/Context";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
 import ManageProducts from "./components/ProductManagment/ManageProducts";
 import AddProduct from "./components/ProductManagment/AddProduct";
+import EditProduct from "./components/ProductManagment/EditProduct";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
               <Route element={<ProtectedRoutes />}>
                 <Route path="/ManageProducts" element={<ManageProducts />} />
                 <Route path="/AddProduct" element={<AddProduct />} />
+                <Route path="/EditProduct" element={<EditProduct />} />
               </Route>
             </Routes>
           </div>
