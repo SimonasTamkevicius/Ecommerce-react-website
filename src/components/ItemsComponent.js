@@ -24,7 +24,7 @@ const ItemsComponent = () => {
         console.log(error);
         setLoading(false);
       });
-  }, []);
+  }, [products]);
 
   const reorderProducts = () => {
     let sortedProducts = products;

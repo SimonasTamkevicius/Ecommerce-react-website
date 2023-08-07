@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../api/axios';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../utils/AuthContext'
 
@@ -7,7 +7,7 @@ function Register() {
   const [message, setMessage] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const {user, loginUser} = useAuth();
+  const { user, loginUser } = useAuth();
 
   const navigate = useNavigate(); // Initialize useNavigate
 
@@ -27,7 +27,7 @@ function Register() {
         })
         .then(function (response) {
           console.log(response.data.role);
-          loginUser(response.data.role)
+          loginUser(response.data.role, response.data.accessToken)
           navigate('/UserProfile');
         })
         .catch(function (error) {
@@ -44,8 +44,8 @@ function Register() {
   };
 
   return (
-    <div className='flex justify-center p-4 mt-15 md:mt-0'>
-      <form className='pt-10' onSubmit={handleSubmit}>
+    <div className='flex flex-col justify-center items-center p-4 mt-10 md:mt-0'>
+      <form className='p-10 bg-gray-100 ' onSubmit={handleSubmit}>
           <label className='text-lg md:text-xl font-medium pb-2'>
             Email
           </label>
@@ -73,7 +73,7 @@ function Register() {
               className='bg-black text-white text-lg px-8 py-2 hover:bg-gray-600'
               type="submit"
             >
-              Login
+              Register
             </button>
           </div>
         </form>

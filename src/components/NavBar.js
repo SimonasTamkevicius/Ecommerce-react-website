@@ -1,15 +1,16 @@
 import { CartState } from "../context/Context";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../utils/AuthContext";
+import axios from "axios";
 
 const NavBar = () => {
   const [open, setOpen] = useState(false);
   const formRef = useRef(null);
   const mobileFormRef = useRef(null);
 
-  const { user } = useAuth();
+  const { user, logoutUser } = useAuth();
 
   const {
     state: { cart },
@@ -103,6 +104,10 @@ const NavBar = () => {
     }
   };
 
+  const handleLogoutClick = () => {
+    logoutUser();
+  }
+
   return (
     <div>
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
@@ -152,15 +157,15 @@ const NavBar = () => {
             </form>
             {/* Login and Register vs My Account and Logout  */}
             {user.loggedIn ? (
-              <div className="flex flex-row space-x-3 mr-1">
+              <div className="flex flex-row space-x-3 mr-1 mt-3">
                 <Link to="UserProfile" className="no-underline text-black">
                 {/* <img width={40} src="/userIcon.png" alt="User Icon" /> */}
                   <p className="hover:cursor-pointer">My account</p>
                 </Link>
-                <p className="border-l-2 px-3 border-gray-600 hover:cursor-pointer">Logout</p>
+                <p className="border-l-2 px-3 border-gray-600 hover:cursor-pointer" onClick={handleLogoutClick}>Logout</p>
               </div>
               ) : (
-                <div className="flex flex-row space-x-3 mr-1">
+                <div className="flex flex-row space-x-3 mr-1 mt-3">
                   <Link to="UserProfile" className="no-underline text-black">
                     <p className="hover:cursor-pointer">Login</p>
                   </Link>

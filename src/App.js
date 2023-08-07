@@ -8,6 +8,9 @@ import About from "./components/About";
 import Register from "./components/Register";
 import { AuthProvider } from "./utils/AuthContext";
 import Context from "./context/Context";
+import ProtectedRoutes from "./utils/ProtectedRoutes";
+import ManageProducts from "./components/ProductManagment/ManageProducts";
+import AddProduct from "./components/ProductManagment/AddProduct";
 
 function App() {
   return (
@@ -23,6 +26,10 @@ function App() {
               <Route path="UserProfile" element={<UserProfile />} />
               <Route path="About" element={<About />} />
               <Route path="/Register" element={<Register />} />
+              <Route element={<ProtectedRoutes />}>
+                <Route path="/ManageProducts" element={<ManageProducts />} />
+                <Route path="/AddProduct" element={<AddProduct />} />
+              </Route>
             </Routes>
           </div>
         </Context>

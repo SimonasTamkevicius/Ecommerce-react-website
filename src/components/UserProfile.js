@@ -7,7 +7,7 @@ const UserProfile = () => {
   const [message, setMessage] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { loginUser } = useAuth();
+  const { user, loginUser } = useAuth();
 
   const navigate = useNavigate();
 
@@ -33,8 +33,8 @@ const UserProfile = () => {
           },
         })
         .then(function (response) {
-          console.log(response.data.role);
-          loginUser(response.data.role);
+          console.log(response.data.role, response.data.accessToken);
+          loginUser(response.data.role, response.data.accessToken);
           setEmail('');
           setPassword('');
           navigate('/UserProfile');
@@ -51,9 +51,15 @@ const UserProfile = () => {
       <div className='flex flex-col w-80 h-50'>
         <h1 className='flex justify-start text-4xl'>My Account</h1>
         <p className='pt-4'>Account Settings</p>
+        {user.loggedIn ? null : 
         <Link to='/Register' className='no-underline text-black'>
           <button className='pl-5 text-sm hover:cursor-pointer'>Create Account</button>
-        </Link>
+        </Link>}
+        {user.loggedIn && user.role === "Admin" ? (
+          <Link to='/ManageProducts' className='no-underline text-black'>
+            <button className='pl-5 text-sm hover:cursor-pointer'>Manage Products</button>
+          </Link>
+        ) : null}
         <hr className='lg:w-80'></hr>
       </div>
       <div className='flex flex-col justify-start bg-gray-100 p-4 mt-10 md:mt-0'>
