@@ -1,5 +1,5 @@
 import React from "react";
-import ItemsComponent from "../components/ItemsComponent";
+import ItemsComponent from "../components/ProductDisplay/ItemsComponent";
 
 const ShopPage = () => {
   return (

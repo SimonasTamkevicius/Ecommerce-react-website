@@ -7,6 +7,7 @@ const AddProduct = () => {
     const [price, setPrice] = useState('');
     const [stock, setStock] = useState('');
     const [image, setImage] = useState(null);
+    const [description, setDescription] = useState('');
 
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -21,6 +22,7 @@ const AddProduct = () => {
           name: setName,
           price: setPrice,
           stock: setStock,
+          description: setDescription
         };
     
         const stateUpdater = inputStateMap[name];
@@ -42,6 +44,7 @@ const AddProduct = () => {
       formData.append('name', name);
       formData.append('price', price);
       formData.append('stock', stock);
+      formData.append('description', description)
       formData.append('image', image);
     
       axios
@@ -138,6 +141,18 @@ const AddProduct = () => {
             value={stock}
             onChange={handleChange}
             className='w-full px-4 py-2 mb-4 border-2 border-black'
+          />
+          <label className='text-lg md:text-xl font-medium pb-2'>
+              Description
+          </label>
+          <textarea
+              required
+              id='description'
+              placeholder='Enter product description'
+              name='description'
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className='w-full px-4 py-2 mb-4 border-2 border-black'
           />
           <div className="mt-2">
               <label htmlFor="image" className="cursor-pointer text-black bg-slate-200 hover:bg-slate-300 transition-colors duration-100 ease-in-out px-1 py-1 mt-2 rounded">

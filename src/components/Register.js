@@ -39,8 +39,22 @@ function Register() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setEmail(event.target.email.value);
-    setPassword(event.target.password.value);
+    setEmail(email);
+    setPassword(password);
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    const inputStateMap = {
+        email: setEmail,
+        password: setPassword
+    };
+
+    const stateUpdater = inputStateMap[name];
+    if (stateUpdater) {
+        stateUpdater(value);
+    }
   };
 
   return (
@@ -53,6 +67,8 @@ function Register() {
             required
             type='email'
             id='email'
+            value={email}
+            onChange={handleChange}
             placeholder='Enter email'
             name='email'
             className='w-full px-4 py-2 mb-4 border-2 border-black'
@@ -64,6 +80,8 @@ function Register() {
             required
             type='password'
             id='password'
+            value={password}
+            onChange={handleChange}
             placeholder='Enter password'
             name='password'
             className='w-full px-4 py-2 mb-4 border-2 border-black'

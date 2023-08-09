@@ -12,6 +12,7 @@ import ProtectedRoutes from "./utils/ProtectedRoutes";
 import ManageProducts from "./components/ProductManagment/ManageProducts";
 import AddProduct from "./components/ProductManagment/AddProduct";
 import EditProduct from "./components/ProductManagment/EditProduct";
+import SingleProductPage from "./components/ProductDisplay/SingleProductPage";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
                 <Route path="/AddProduct" element={<AddProduct />} />
                 <Route path="/EditProduct" element={<EditProduct />} />
               </Route>
+              <Route path="/SingleProductPage" element={<SingleProductPage />} />
             </Routes>
           </div>
         </Context>

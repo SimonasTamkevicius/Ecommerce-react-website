@@ -1,5 +1,6 @@
-import { CartState } from "../context/Context";
+import { CartState } from "../../context/Context";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const SingleProduct = ({ prod }) => {
   const {
@@ -10,30 +11,42 @@ const SingleProduct = ({ prod }) => {
   return (
     <div className="max-w-sm sm:max-w-sm bg-white border border-gray-200 shadow dark:bg-gray-200 flex flex-col justify-between">
       <div className="w-full h-40 md:w-full md:h-60 lg:w-full lg:h-80">
-        <img
-          src={prod.imageURL}
-          alt={prod.name}
-          className="object-cover w-full h-full hover:cursor-pointer"
-        />
+        <Link
+          to="/SingleProductPage"
+          className="no-underline text-black"
+          state={{ prod: prod }}
+        >
+          <img
+            src={prod.imageURL}
+            alt={prod.name}
+            className="object-cover w-full h-full hover:cursor-pointer"
+          />
+        </Link>
       </div>
       <div className="flex flex-col justify-between p-3 sm:p-5">
-        <div className="mb-3">
-          <h5 className="text-sm sm:text-2xl font-bold tracking-tight text-gray-900 dark:text-black">
-            {prod.name}
-          </h5>
-          <p className="text-lg sm:text-base font-semibold text-black">
-            ${prod.price}
-          </p>
-          <p
-            className={
-              prod.stock
-                ? "text-sm sm:text-base my-2 font-normal text-green-600"
-                : "text-sm sm:text-base my-2 font-normal text-red-600"
-            }
-          >
-            {prod.stock} In Stock
-          </p>
-        </div>
+        <Link
+          to="/SingleProductPage"
+          className="no-underline text-black"
+          state={{ prod: prod }}
+        >
+          <div className="mb-3">
+            <h5 className="text-sm sm:text-2xl font-bold tracking-tight text-gray-900 dark:text-black">
+              {prod.name}
+            </h5>
+            <p className="text-lg sm:text-base font-semibold text-black">
+              ${prod.price}
+            </p>
+            <p
+              className={
+                prod.stock
+                  ? "text-sm sm:text-base my-2 font-normal text-green-600"
+                  : "text-sm sm:text-base my-2 font-normal text-red-600"
+              }
+            >
+              {prod.stock} In Stock
+            </p>
+          </div>
+        </Link>
         <div
           id="inStock-addToCart"
           className="flex items-center justify-between"

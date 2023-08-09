@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { CartState } from "../../context/Context";
 import axios from '../../api/axios';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-const EditProduct = (props) => {
-
-    const {
-        state: { products: initialProducts },
-    } = CartState();
+const EditProduct = () => {
 
     const location = useLocation();
     const { product } = location.state;
@@ -24,6 +19,7 @@ const EditProduct = (props) => {
     const [price, setPrice] = useState('');
     const [stock, setStock] = useState('');
     const [image, setImage] = useState(null);
+    const [description, setDescription] = useState('');
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -167,6 +163,18 @@ const EditProduct = (props) => {
                     onChange={handleChange}
                     placeholder="Stock"
                     className="mt-2 px-2 py-1 rounded border"
+                    />
+                </div>
+                <div>
+                    <label htmlFor='description' className='mr-5'>Description</label>
+                    <textarea
+                        required
+                        id='description'
+                        placeholder='Enter product description'
+                        name='description'
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                        className='mt-2 px-2 py-1 rounded border'
                     />
                 </div>
                 <div className="flex flex-row justify-end mt-3">
