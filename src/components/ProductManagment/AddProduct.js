@@ -139,17 +139,18 @@ const AddProduct = () => {
             onChange={handleChange}
             className='w-full px-4 py-2 mb-4 border-2 border-black'
           />
-          <label className='text-lg md:text-xl font-medium pb-2'>
-            Image
-          </label>
-          <input
-            required
-            type='file'
-            id='image'
-            name='image'
-            onChange={handleImageChange}
-            className='w-full py-2 mb-4'
-          />
+          <div className="mt-2">
+              <label htmlFor="image" className="cursor-pointer text-black bg-slate-200 hover:bg-slate-300 transition-colors duration-100 ease-in-out px-1 py-1 mt-2 rounded">
+              Select Image
+              </label>
+              <input
+              type="file"
+              id="image"
+              name="image"
+              onChange={handleImageChange}
+              className="hidden"
+              />
+          </div>
           <div className='flex justify-end'>
             <button
               className='bg-black text-white text-lg px-8 py-2 hover:bg-gray-600'

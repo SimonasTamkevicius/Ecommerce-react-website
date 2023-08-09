@@ -29,7 +29,7 @@ function ManageProducts() {
       });
   }, []);
   
-  const handleDeleteClick = (productName) => {
+  const handleDeleteClick = (productName, imageName) => {
     console.log(productName);
     axios
       .delete('/products', {
@@ -37,7 +37,8 @@ function ManageProducts() {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
         data: {
-          name: productName
+          name: productName,
+          imageName: imageName
         }
       })
       .then(function (response) {
@@ -104,7 +105,7 @@ return (
                 </Link>
                   <button
                     className="hover:cursor-pointer hover:bg-slate-100 p-1 rounded-sm"
-                    onClick={() => handleDeleteClick(product.name)}
+                    onClick={() => handleDeleteClick(product.name, product.imageName)}
                   >
                     <AiFillDelete className="text-2xl" />
                   </button>

@@ -3,7 +3,7 @@ import HomePage from "./components/HomePage";
 import Cart from "./components/Cart";
 import NavBar from "./components/NavBar";
 import ShopPage from "./components/ShopPage";
-import UserProfile from "./components/UserProfile";
+import UserProfile from "./components/profile/UserProfile";
 import About from "./components/About";
 import Register from "./components/Register";
 import { AuthProvider } from "./utils/AuthContext";
