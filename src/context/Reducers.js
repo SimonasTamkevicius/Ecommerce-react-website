@@ -27,10 +27,13 @@ export const productReducer = (state, action) => {
       return { ...state, byStock: !state.byStock };
     case "FILTER_BY_SEARCH":
       return { ...state, bySearch: action.payload };
+    case "FILTER_BY_SEARCH_BAR":
+      return { ...state, bySearchInBar: action.payload };
     case "CLEAR_FILTERS":
       return {
         byStock: false,
         bySearch: "",
+        bySearchInBar: ""
       };
     default:
       return state;

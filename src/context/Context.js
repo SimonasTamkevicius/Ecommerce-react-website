@@ -32,6 +32,7 @@ const Context = ({ children }) => {
   const [productState, productDispatch] = useReducer(productReducer, {
     byStock: false,
     bySearch: "",
+    bySearchInBar: ""
   });
 
   return (

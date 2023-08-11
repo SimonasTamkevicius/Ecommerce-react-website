@@ -3,19 +3,38 @@ import React, { useState, useRef, useEffect } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../utils/AuthContext";
-import axios from "axios";
+import axios from "../api/axios";
 
 const NavBar = () => {
+  const {
+    state: { cart, products: initialProducts },
+    productState: bySearchInBar,
+    productDispatch
+  } = CartState();  
+
+  useEffect(() => {
+    axios
+      .get("/products")
+      .then(function (response) {
+        setProducts(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+
   const [open, setOpen] = useState(false);
   const formRef = useRef(null);
   const mobileFormRef = useRef(null);
+  const [searchValue, setSearchValue] = useState('');
+  const [products, setProducts] = useState(initialProducts);
+  const [sortedProducts, setSortedProds] = useState([]);
+  const [focus, setFocus] = useState(false);
 
   const { user, logoutUser } = useAuth();
 
-  const {
-    state: { cart },
-    productDispatch,
-  } = CartState();
+  let sortProds = [];
+  console.log(sortProds);
 
   const navlinks = [
     {
@@ -48,11 +67,66 @@ const NavBar = () => {
     setOpen((prev) => !prev);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        (formRef.current &&
+          !formRef.current.contains(event.target)) ||
+          (mobileFormRef.current && !mobileFormRef.current.contains(event.target))
+      ) {
+        handleBlur();
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+  useEffect(() => {
+    const handClickInside = (event) => {
+      if (
+        (formRef.current &&
+        formRef.current.contains(event.target)) ||
+        (mobileFormRef.current && mobileFormRef.current.contains(event.target))
+      ) {
+        handleFocus();
+      }
+    };
+
+    document.addEventListener("click", handClickInside);
+
+    return () => {
+      document.removeEventListener("click", handClickInside);
+    };
+  }, []);
+
   const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setSearchValue(e.target.value);
+    const inputValue = e.target.value.toLowerCase();
+    const capitalizedInputValue =
+      inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
+    productDispatch({
+      type: "FILTER_BY_SEARCH_BAR",
+      payload: capitalizedInputValue,
+    });
+
+    if (bySearchInBar) {
+      const sortProds = products.filter((prod) =>
+        prod.name.includes(capitalizedInputValue) || prod.name.includes(inputValue.toLowerCase())
+      );
+      setSortedProds(sortProds);
+    }
+    console.log(sortProds);
+  }
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    const inputValue = e.target.elements.searchInput.value.toLowerCase();
+    setFocus(false);
+    const inputValue = searchValue.toLowerCase();
     const capitalizedInputValue =
       inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
     productDispatch({
@@ -61,11 +135,13 @@ const NavBar = () => {
     });
     navigate("/ShopPage");
     formRef.current.reset();
+    setSearchValue('');
   };
 
   const handleMobileFormSubmit = (e) => {
     e.preventDefault();
-    const inputValue = e.target.elements.mobileSearchInput.value.toLowerCase();
+    setFocus(false);
+    const inputValue = searchValue.toLowerCase();
     const capitalizedInputValue =
       inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
     productDispatch({
@@ -74,6 +150,7 @@ const NavBar = () => {
     });
     navigate("/ShopPage");
     mobileFormRef.current.reset();
+    setSearchValue('');
   };
 
   const handleLinkClick = (event, link) => {
@@ -104,14 +181,24 @@ const NavBar = () => {
     }
   };
 
+  const handleFocus = () => {
+    setFocus(true);
+  };
+  
+  const handleBlur = () => {
+    setFocus(false);
+  };
+
   const handleLogoutClick = () => {
     logoutUser();
   }
 
+  const totalQty = cart.reduce((total, item) => total + item.qty, 0);
+
   return (
-    <div>
+    <div className="bg-slate-50">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between pt-10 md:px-14 md:pt-14">
+        <div className="flex items-center justify-between md:px-4 md:pt-10">
           {/* hamburger button */}
           <div className="-mr-2 flex lg:hidden">
             <button
@@ -137,29 +224,47 @@ const NavBar = () => {
             </Link>
           </div>
           <div className="flex items-center">
-            <form
-              ref={formRef}
-              className="hidden lg:block"
-              onSubmit={handleFormSubmit}
-            >
-              <input
-                className="border-2 p-1 border-black w-80 focus:outline-none"
-                type="text"
-                placeholder="Find your inspiration"
-                name="searchInput"
-              />
-              <button
-                type="submit"
-                className="bg-black text-white border-2 border-black p-1 mr-20"
+            <div className="flex items-center">
+              <form
+                ref={formRef}
+                className="hidden lg:block"
+                onSubmit={handleFormSubmit}
               >
-                SEARCH
-              </button>
-            </form>
+                <input
+                  className="border-2 p-2 border-black w-96 focus:outline-none"
+                  type="text"
+                  placeholder="Find your inspiration"
+                  name="searchInput"
+                  value={searchValue}
+                  onChange={handleChange}
+                />
+                <button
+                  type="submit"
+                  className="bg-black text-white border-2 border-black p-2 mr-20"
+                >
+                  SEARCH
+                </button>
+                {focus && 
+                  <div className="z-40 position absolute bg-gray-100 w-96 rounded-sm">
+                    {sortedProducts.map((prod, i) => (
+                      <Link
+                        to="/SingleProductPage"
+                        className="no-underline text-black"
+                        state={{ prod: prod }}
+                        key={i}
+                        onClick={() => {setFocus(false)}}
+                      >
+                        <p className="mx-2 my-2 hover:bg-gray-200 hover:cursor-pointer p-2">{prod.name}</p>
+                      </Link>
+                    ))}
+                  </div>
+                }
+              </form>
+            </div>
             {/* Login and Register vs My Account and Logout  */}
             {user.loggedIn ? (
               <div className="flex flex-row space-x-3 mr-1 mt-3">
                 <Link to="UserProfile" className="no-underline text-black">
-                {/* <img width={40} src="/userIcon.png" alt="User Icon" /> */}
                   <p className="hover:cursor-pointer">My account</p>
                 </Link>
                 <p className="border-l-2 px-3 border-gray-600 hover:cursor-pointer" onClick={handleLogoutClick}>Logout</p>
@@ -194,7 +299,7 @@ const NavBar = () => {
                     fill="white"
                     fontSize="10"
                   >
-                    {cart.length}
+                    {cart.prod}
                   </text>
                 </svg>
               </div>
@@ -207,9 +312,9 @@ const NavBar = () => {
                     y="12"
                     textAnchor="middle"
                     fill="white"
-                    fontSize="10"
+                    fontSize="11"
                   >
-                    {cart.length}
+                    {totalQty}
                   </text>
                 </svg>
               </div>
@@ -218,17 +323,19 @@ const NavBar = () => {
         </div>
       </div>
       <div className="flex items-center justify-center pt-10">
-        <form
-          ref={mobileFormRef}
-          className="lg:hidden block"
-          onSubmit={handleMobileFormSubmit}
-        >
+          <form
+            ref={mobileFormRef}
+            className="lg:hidden block relative"
+            onSubmit={handleMobileFormSubmit}
+          >
           <div className="flex items-center">
             <input
               className="border-2 p-1 border-black w-full sm:w-80 rounded-none focus:outline-none"
               type="text"
               placeholder="Find your inspiration"
               name="mobileSearchInput"
+              value={searchValue}
+              onChange={handleChange}
             />
             <button
               type="submit"
@@ -236,6 +343,21 @@ const NavBar = () => {
             >
               SEARCH
             </button>
+            {focus && 
+              <div className="z-20 position absolute top-9 bg-gray-100 w-full md:w-80 rounded-sm">
+                {sortedProducts.map((prod, i) => (
+                  <Link
+                    to="/SingleProductPage"
+                    className="no-underline text-black"
+                    state={{ prod: prod }}
+                    key={i}
+                    onClick={() => {setFocus(false)}}
+                  >
+                    <p className="mx-2 my-2 hover:bg-gray-200 hover:cursor-pointer p-2">{prod.name}</p>
+                  </Link>
+                ))}
+              </div>
+            }
           </div>
         </form>
       </div>
@@ -274,9 +396,9 @@ const NavBar = () => {
           </div>
         )}
       </div>
-      <div className="mx-auto lg:px-20">
+      <div className="">
         {/* navlinks */}
-        <div className="hidden lg:block bg-slate-200 pb-2 pt-4">
+        <div className="hidden lg:block bg-gray-200 pb-2 pt-4">
           <div className="justify-between flex items-baseline">
             {navlinks.map((link, index) => (
               <Link

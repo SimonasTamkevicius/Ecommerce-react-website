@@ -88,27 +88,29 @@ const CartData = () => {
                       className="flex items-center space-x-8"
                     >
                       <div className="flex items-center pr-5">
-                        <Form.Control
-                          as="select"
-                          value={prod.qty}
-                          onChange={(e) =>
-                            dispatch({
-                              type: "CHANGE_CART_QTY",
-                              payload: {
-                                name: prod.name,
-                                qty: e.target.value,
-                              },
-                            })
-                          }
-                        >
-                          {[...Array(prod.stock).keys()].map((x) => (
-                            <option key={x + 1}>{x + 1}</option>
-                          ))}
-                        </Form.Control>
+                      <Form.Control
+                        as="select"
+                        value={prod.qty.toString()} // Convert qty to string
+                        onChange={(e) =>
+                          dispatch({
+                            type: "CHANGE_CART_QTY",
+                            payload: {
+                              name: prod.name,
+                              qty: parseInt(e.target.value), // Parse the selected value to an integer
+                            },
+                          })
+                        }
+                      >
+                        {[...Array(prod.stock).keys()].map((x) => (
+                          <option key={x + 1} value={x + 1}> {/* Set value attribute */}
+                            {x + 1}
+                          </option>
+                        ))}
+                      </Form.Control>
                       </div>
                       <div className="flex pt-3 pr-3 items-center">
                         <p className="text-base font-semibold text-black">
-                          ${prod.price * prod.qty}
+                          ${(prod.price * prod.qty).toFixed(2)}
                         </p>
                       </div>
                       <div className="flex">

@@ -13,6 +13,8 @@ const AddProduct = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
 
+    const [selectedImageName, setSelectedImageName] = useState('');
+
     const navigate = useNavigate();
 
     const handleChange = (event) => {
@@ -34,6 +36,7 @@ const AddProduct = () => {
     const handleImageChange = (event) => {
         const file = event.target.files[0];
         setImage(file);
+        setSelectedImageName(file.name);
     };
 
     const handleSubmit = (event) => {
@@ -75,7 +78,6 @@ const AddProduct = () => {
   return (
     <div className='flex flex-col'>
       {loading && (
-        // Show "loading..." message if loading state is true
         <div className="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-80">
           <p className="text-white text-xl">Loading...</p>
         </div>
@@ -154,7 +156,7 @@ const AddProduct = () => {
               onChange={(e) => setDescription(e.target.value)}
               className='w-full px-4 py-2 mb-4 border-2 border-black'
           />
-          <div className="mt-2">
+          <div className="mt-2 relative">
               <label htmlFor="image" className="cursor-pointer text-black bg-slate-200 hover:bg-slate-300 transition-colors duration-100 ease-in-out px-1 py-1 mt-2 rounded">
               Select Image
               </label>
@@ -165,6 +167,11 @@ const AddProduct = () => {
               onChange={handleImageChange}
               className="hidden"
               />
+            <div className='mt-3'>
+              {selectedImageName && (
+                <p className="absolute bg-white text-xs py-1 px-2 rounded-b text-center">{selectedImageName}</p>
+              )}
+            </div>
           </div>
           <div className='flex justify-end'>
             <button

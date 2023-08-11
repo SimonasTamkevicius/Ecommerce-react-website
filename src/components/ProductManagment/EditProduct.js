@@ -28,6 +28,7 @@ const EditProduct = () => {
             name: setName,
             price: setPrice,
             stock: setStock,
+            description: setDescription
         };
 
         const stateUpdater = inputStateMap[name];
@@ -46,7 +47,8 @@ const EditProduct = () => {
         setName(product.name);
         setPrice(product.price);
         setStock(product.stock);
-        setImage(product.imageURL)
+        setDescription(product.description);
+        setImage(product.imageURL);
         setLoading(false);
     }, [product.name, product.price, product.stock, product.imageURL])
 
@@ -58,6 +60,7 @@ const EditProduct = () => {
           formData.append('name', name);
           formData.append('price', price);
           formData.append('stock', stock);
+          formData.append('description', description)
           formData.append('image', image);
         axios
           .put("/products", formData, {
@@ -112,8 +115,8 @@ const EditProduct = () => {
             </div>
           )}
           <div className='flex flex-row justify-start items-center mt-4 ml-20'>
-            <div className="flex flex-col bg-slate-50 rounded-sm p-3 w-2/6 space-y-5">
-              <div className="flex flex-row justify-start">
+            <div className="flex flex-col justify-center items-start bg-slate-50 rounded-sm p-3 w-3/6 space-y-5">
+              <div className="flex flex-row justify-start w-full">
                 <div className="relative">
                     <img src={product.imageURL} alt={`${product.name}`} className="h-40 w-40 border-2 border-gray-500" />
                 </div>
@@ -135,47 +138,48 @@ const EditProduct = () => {
                   </div>
                 </div>
               </div>
-                <div className='mt-3'>
+                <div className='mt-3 w-4/6'>
                     <label htmlFor='name' className='mr-5'>Name</label>
                     <input
                     value={name}
                     name="name"
                     onChange={handleChange}
                     placeholder="Product Name"
-                    className="mt-2 px-2 py-1 rounded border"
+                    className="w-full mt-2 px-2 py-1 rounded border"
                     />
                 </div>
-                <div>
+                <div className='mt-3 w-1/6'>
                     <label htmlFor='price' className='mr-5'>Price</label>
                     <input
                     value={price}
                     name="price"
                     onChange={handleChange}
                     placeholder="Price"
-                    className="mt-2 px-2 py-1 rounded border"
+                    className="w-full mt-2 px-2 py-1 rounded border"
                     />
                 </div>
-                <div>
+                <div className='mt-3 w-1/6'>
                     <label htmlFor='stock' className='mr-5'>Stock</label>
                     <input
                     value={stock}
                     name="stock"
                     onChange={handleChange}
                     placeholder="Stock"
-                    className="mt-2 px-2 py-1 rounded border"
+                    className="w-full mt-2 px-2 py-1 rounded border"
                     />
                 </div>
-                <div>
-                    <label htmlFor='description' className='mr-5'>Description</label>
-                    <textarea
-                        required
-                        id='description'
-                        placeholder='Enter product description'
-                        name='description'
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        className='mt-2 px-2 py-1 rounded border'
-                    />
+                <div className='mt-3 w-4/6'>
+                  <label htmlFor='description' className='mr-5'>Description</label>
+                  <textarea
+                    required
+                    id='description'
+                    placeholder='Enter product description'
+                    name='description'
+                    value={description}
+                    rows={5}
+                    onChange={(e) => setDescription(e.target.value)}
+                    className='w-full mt-2 px-2 py-1 rounded border'
+                  />
                 </div>
                 <div className="flex flex-row justify-end mt-3">
                   <button

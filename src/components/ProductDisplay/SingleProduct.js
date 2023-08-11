@@ -1,6 +1,7 @@
 import { CartState } from "../../context/Context";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { IoCheckmarkSharp } from "react-icons/io5"
 
 const SingleProduct = ({ prod }) => {
   const {
@@ -8,9 +9,44 @@ const SingleProduct = ({ prod }) => {
     dispatch,
   } = CartState();
 
+  const [numProducts, setNumProducts] = useState(0)
+  const [isAdding, setIsAdding] = useState(false);
+  const [added, setAdded] = useState(false);
+
+  const existingCartItem = cart.find((item) => item.name === prod.name);
+
+  const handleAddClick = () => {
+    setIsAdding(true);
+    setNumProducts(numProducts + 1);
+
+    setTimeout(() => {
+      setIsAdding(false);
+
+      if (existingCartItem) {
+        dispatch({
+          type: "CHANGE_CART_QTY",
+          payload: {
+            name: prod.name,
+            qty: existingCartItem.qty + 1,
+          },
+        });
+      } else {
+        dispatch({
+          type: "ADD_TO_CART",
+          payload: { ...prod, qty: 1 },
+        });
+      }
+
+      setAdded(true);
+      setTimeout(() => {
+        setAdded(false);
+      }, 1000);
+    }, 1500);
+  };
+
   return (
-    <div className="max-w-sm sm:max-w-sm bg-white border border-gray-200 shadow dark:bg-gray-200 flex flex-col justify-between">
-      <div className="w-full h-40 md:w-full md:h-60 lg:w-full lg:h-80">
+    <div className="max-w-sm sm:max-w-sm bg-white border border-gray-100 hover:shadow-md dark:bg-gray-200 flex flex-col justify-between">
+      <div className="w-full h-40 md:w-full md:h-60 lg:w-full lg:h-60">
         <Link
           to="/SingleProductPage"
           className="no-underline text-black"
@@ -47,42 +83,44 @@ const SingleProduct = ({ prod }) => {
             </p>
           </div>
         </Link>
-        <div
-          id="inStock-addToCart"
-          className="flex items-center justify-between"
-        >
-          {cart.some((p) => p.name === prod.name) ? (
-            <button
-              onClick={() =>
-                dispatch({
-                  type: "REMOVE_FROM_CART",
-                  payload: prod,
-                })
-              }
-              href="#"
-              className="inline-flex items-center px-2 py-2 text-xs sm:text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-            >
-              Remove from Cart
-            </button>
-          ) : (
-            <button
-              disabled={!prod.stock}
-              onClick={() =>
-                dispatch({
-                  type: "ADD_TO_CART",
-                  payload: prod,
-                })
-              }
-              href="#"
-              className={`inline-flex items-center px-2 py-2 text-xs sm:text-sm font-medium text-center text-white rounded-md ${
-                !prod.stock
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              }`}
-            >
-              {!prod.stock ? "Out of Stock" : "Add to Cart"}
-            </button>
-          )}
+        <div id="inStock-addToCart" className="flex flex-row items-center justify-between">
+          <button
+            disabled={!prod.stock}
+            onClick={!isAdding && !added ? handleAddClick : null}
+            href="#"
+            className={`inline-flex items-center px-2 py-2 text-xs sm:text-sm font-medium text-center text-white rounded-md ${
+              !prod.stock
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-black focus:outline-none"
+            }`}
+          >
+            {isAdding ? (
+              <div className="flex flex-row">
+                <div class="lds-ring-prod"><div></div><div></div><div></div><div></div></div>
+                <p
+                  style={{ verticalAlign: "middle", margin: 0 }}
+                >
+                  Adding...
+                </p>
+              </div>
+            ) : (
+              <div className="flex flex-row">
+                {added ? (
+                  <div className="flex flex-row">
+                    <IoCheckmarkSharp className="text-xl" />
+                    <p
+                      style={{verticalAlign: "middle", marginLeft: 0, marginTop: 0, marginBottom: 0, marginRight: 7}}
+                    >
+                      Added
+                    </p>
+                  </div>
+                  ) : (
+                    !prod.stock ? "Out of Stock" : "Add to Cart")
+                }
+              </div>
+              
+            )}
+          </button>
         </div>
       </div>
     </div>
