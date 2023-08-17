@@ -3,6 +3,7 @@ import { CartState } from "../../context/Context";
 import SingleProduct from "./SingleProduct";
 import Filters from "../Filters";
 import axios from "../../api/axios";
+import { animateScroll as scroll } from "react-scroll";
 
 const ItemsComponent = () => {
   const {
@@ -13,7 +14,7 @@ const ItemsComponent = () => {
   const [products, setProducts] = useState(initialProducts);
   const [loading, setLoading] = useState(true);
   const [numProducts, setNumProducts] = useState(0);
-  const productsPerPage = 10;
+  const productsPerPage = 12;
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -62,6 +63,10 @@ const ItemsComponent = () => {
   };
 
   const handlePageChange = (newPage) => {
+    scroll.scrollToTop({
+      duration: 0,
+      smooth: "linear"
+    });
     setCurrentPage(newPage);
   };
 

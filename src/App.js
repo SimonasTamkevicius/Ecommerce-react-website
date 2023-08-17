@@ -14,6 +14,7 @@ import AddProduct from "./components/ProductManagment/AddProduct";
 import EditProduct from "./components/ProductManagment/EditProduct";
 import SingleProductPage from "./components/ProductDisplay/SingleProductPage";
 import ProtectedRoutesUser from "./utils/ProtectedRoutesUser";
+import OrderSuccess from "./components/OrderSuccess";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
               <Route element={<ProtectedRoutesUser />}>
               </Route>
               <Route path="/SingleProductPage" element={<SingleProductPage />} />
+              <Route path="/OrderSuccess"element={<OrderSuccess />} />
             </Routes>
           </div>
         </Context>

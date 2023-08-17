@@ -79,17 +79,17 @@ const EditUserProfile = () => {
   return (
     <div>
       {successMessage.length > 0 && (
-        <div className="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-80">
+        <div className="fixed inset-0 z-10 flex justify-center items-center bg-gray-500 bg-opacity-80">
           <p className="text-white text-xl">{successMessage}</p>
         </div>
       )}
       {errorMessage.length > 0 && (
-        <div className="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-80">
+        <div className="fixed inset-0 z-10 flex justify-center items-center bg-gray-500 bg-opacity-80">
           <p className="text-white text-xl">{errorMessage}</p>
         </div>
       )}
       {loading && (
-        <div className="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-80">
+        <div className="fixed inset-0 z-10 flex justify-center items-center bg-gray-500 bg-opacity-80">
           <p className="text-white text-xl">Loading...</p>
         </div>
       )}

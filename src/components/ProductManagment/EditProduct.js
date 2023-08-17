@@ -89,12 +89,12 @@ const EditProduct = () => {
         <div>
           <div>
             {successMessage.length > 0 && (
-              <div className="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-80">
+              <div className="fixed inset-0 z-10 flex justify-center items-center bg-gray-500 bg-opacity-80">
                 <p className="text-white text-xl">{successMessage}</p>
               </div>
             )}
             {errorMessage.length > 0 && (
-              <div className="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-80">
+              <div className="fixed inset-0 z-10 flex justify-center items-center bg-gray-500 bg-opacity-80">
                 <p className="text-white text-xl">{errorMessage}</p>
               </div>
             )}
@@ -110,7 +110,7 @@ const EditProduct = () => {
             <h1 className='ml-20 pt-3'>Edit Product</h1>
           </div>
           {loading && (
-            <div className="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-80">
+            <div className="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-80 z-10">
               <p className="text-white text-xl">Loading...</p>
             </div>
           )}
@@ -133,7 +133,7 @@ const EditProduct = () => {
                     />
                   <div className='mt-3'>
                     {selectedImageName && (
-                      <p className="absolute bg-white text-xs py-1 px-2 rounded-b w-full text-center">{selectedImageName}</p>
+                      <p className="bg-white text-xs py-1 px-2 rounded-b w-full text-center">{selectedImageName}</p>
                     )}
                   </div>
                 </div>
