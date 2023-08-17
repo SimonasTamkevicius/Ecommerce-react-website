@@ -3,6 +3,7 @@ import { CartState } from "../context/Context";
 import { AiFillDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { Form } from "react-bootstrap";
+import axios from "../api/axios";
 
 const CartData = () => {
   const {
@@ -30,6 +31,26 @@ const CartData = () => {
   useEffect(() => {
     setTotalQuantity(cart.reduce((acc, curr) => acc + Number(curr.qty), 0));
   }, [cart, dispatch]);
+
+  const handleClick = () => {
+    console.log(cart);
+  
+    axios.post("/create-checkout-session", { cart }, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+      crossDomain: true,
+    })
+    .then(function (response) {
+      console.log(response);
+      console.log(response.data.url);
+      window.location.href = response.data.url;
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+  }  
 
   return (
     <div className="md:flex p-10 md:px-20">
@@ -153,7 +174,7 @@ const CartData = () => {
             Total: {total !== undefined ? `$${total.toFixed(2)}` : ""}
           </p>
           <div className="pt-3">
-            <button className="p-2 font-semibold bg-black text-white rounded-md">
+            <button className="p-2 font-semibold bg-black text-white rounded-md" onClick={handleClick}>
               Proceed to Checkout
             </button>
           </div>

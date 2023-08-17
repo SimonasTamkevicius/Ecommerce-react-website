@@ -96,7 +96,7 @@ const SingleProduct = ({ prod }) => {
           >
             {isAdding ? (
               <div className="flex flex-row">
-                <div class="lds-ring-prod"><div></div><div></div><div></div><div></div></div>
+                <div className="lds-ring-prod"><div></div><div></div><div></div><div></div></div>
                 <p
                   style={{ verticalAlign: "middle", margin: 0 }}
                 >

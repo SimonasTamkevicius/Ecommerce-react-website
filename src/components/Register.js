@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../utils/AuthContext'
 
 function Register() {
+  const [fName, setFName] = useState('');
+  const [lName, setLName] = useState('');
   const [message, setMessage] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -11,11 +13,12 @@ function Register() {
 
   const navigate = useNavigate(); // Initialize useNavigate
 
-  useEffect(() => {
-    // Only execute the form submission if email and password are not empty
-    if (email && password) {
-      // Create URLSearchParams object
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (fName && lName && email && password) {
       const formData = new URLSearchParams();
+      formData.append('fName', fName);
+      formData.append('lName', lName);
       formData.append('email', email);
       formData.append('password', password);
 
@@ -27,7 +30,7 @@ function Register() {
         })
         .then(function (response) {
           console.log(response.data.role);
-          loginUser(response.data.role, response.data.accessToken)
+          loginUser(response.data.role, response.data.accessToken, response.data._id, response.data.fName, response.data.lName, response.data.email)
           navigate('/UserProfile');
         })
         .catch(function (error) {
@@ -35,20 +38,16 @@ function Register() {
           console.error('Error:', error);
         });
     }
-  }, [email, password, navigate]);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setEmail(email);
-    setPassword(password);
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
 
     const inputStateMap = {
-        email: setEmail,
-        password: setPassword
+      fName: setFName,
+      lName: setLName,
+      email: setEmail,
+      password: setPassword
     };
 
     const stateUpdater = inputStateMap[name];
@@ -60,41 +59,73 @@ function Register() {
   return (
     <div className='flex flex-col justify-center items-center p-4 mt-10 md:mt-0'>
       <form className='p-10 bg-gray-100 ' onSubmit={handleSubmit}>
-          <label className='text-lg md:text-xl font-medium pb-2'>
-            Email
-          </label>
-          <input
-            required
-            type='email'
-            id='email'
-            value={email}
-            onChange={handleChange}
-            placeholder='Enter email'
-            name='email'
-            className='w-full px-4 py-2 mb-4 border-2 border-black'
-          />
-          <label className='text-lg md:text-xl font-medium pb-2'>
-            Password
-          </label>
-          <input
-            required
-            type='password'
-            id='password'
-            value={password}
-            onChange={handleChange}
-            placeholder='Enter password'
-            name='password'
-            className='w-full px-4 py-2 mb-4 border-2 border-black'
-          />
-          <div className='flex justify-end'>
-            <button
-              className='bg-black text-white text-lg px-8 py-2 hover:bg-gray-600'
-              type="submit"
-            >
-              Register
-            </button>
+        <div className='flex flex-row space-x-2'>
+          <div className='flex flex-col w-50'>
+            <label className='text-lg md:text-xl font-medium pb-2'>
+              First Name
+            </label>
+            <input
+              required
+              type='fName'
+              id='fName'
+              value={fName}
+              onChange={handleChange}
+              placeholder='Enter first name'
+              name='fName'
+              className='w-full px-4 py-2 mb-4 border-2 border-black'
+            />
           </div>
-        </form>
+          <div className='flex flex-col w-50'>
+            <label className='text-lg md:text-xl font-medium pb-2'>
+              Last Name
+            </label>
+            <input
+              required
+              type='lName'
+              id='lName'
+              value={lName}
+              onChange={handleChange}
+              placeholder='Enter last name'
+              name='lName'
+              className='w-full px-4 py-2 mb-4 border-2 border-black'
+            />
+          </div>
+        </div>
+        <label className='text-lg md:text-xl font-medium pb-2'>
+          Email
+        </label>
+        <input
+          required
+          type='email'
+          id='email'
+          value={email}
+          onChange={handleChange}
+          placeholder='Enter email'
+          name='email'
+          className='w-full px-4 py-2 mb-4 border-2 border-black'
+        />
+        <label className='text-lg md:text-xl font-medium pb-2'>
+          Password
+        </label>
+        <input
+          required
+          type='password'
+          id='password'
+          value={password}
+          onChange={handleChange}
+          placeholder='Enter password'
+          name='password'
+          className='w-full px-4 py-2 mb-4 border-2 border-black'
+        />
+        <div className='flex justify-end'>
+          <button
+            className='bg-black text-white text-lg px-8 py-2 hover:bg-gray-600'
+            type="submit"
+          >
+            Register
+          </button>
+        </div>
+      </form>
       {message && <div>{message}</div>}
     </div>
   );

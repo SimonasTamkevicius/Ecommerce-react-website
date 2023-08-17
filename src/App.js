@@ -8,11 +8,12 @@ import About from "./components/About";
 import Register from "./components/Register";
 import { AuthProvider } from "./utils/AuthContext";
 import Context from "./context/Context";
-import ProtectedRoutes from "./utils/ProtectedRoutes";
+import ProtectedRoutesAdmin from "./utils/ProtectedRoutesAdmin";
 import ManageProducts from "./components/ProductManagment/ManageProducts";
 import AddProduct from "./components/ProductManagment/AddProduct";
 import EditProduct from "./components/ProductManagment/EditProduct";
 import SingleProductPage from "./components/ProductDisplay/SingleProductPage";
+import ProtectedRoutesUser from "./utils/ProtectedRoutesUser";
 
 function App() {
   return (
@@ -28,10 +29,12 @@ function App() {
               <Route path="UserProfile" element={<UserProfile />} />
               <Route path="About" element={<About />} />
               <Route path="/Register" element={<Register />} />
-              <Route element={<ProtectedRoutes />}>
+              <Route element={<ProtectedRoutesAdmin />}>
                 <Route path="/ManageProducts" element={<ManageProducts />} />
                 <Route path="/AddProduct" element={<AddProduct />} />
                 <Route path="/EditProduct" element={<EditProduct />} />
+              </Route>
+              <Route element={<ProtectedRoutesUser />}>
               </Route>
               <Route path="/SingleProductPage" element={<SingleProductPage />} />
             </Routes>

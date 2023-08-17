@@ -8,6 +8,7 @@ const UserProfile = () => {
   const [message, setMessage] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const { user, loginUser } = useAuth();
 
   const navigate = useNavigate();
@@ -34,8 +35,7 @@ const UserProfile = () => {
           },
         })
         .then(function (response) {
-          console.log(response.data.role, response.data.accessToken);
-          loginUser(response.data.role, response.data.accessToken);
+          loginUser(response.data.role, response.data.accessToken, response.data._id, response.data.fName, response.data.lName, response.data.email);
           setEmail('');
           setPassword('');
           navigate('/UserProfile');

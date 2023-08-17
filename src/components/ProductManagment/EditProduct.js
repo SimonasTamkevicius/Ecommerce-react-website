@@ -50,7 +50,7 @@ const EditProduct = () => {
         setDescription(product.description);
         setImage(product.imageURL);
         setLoading(false);
-    }, [product.name, product.price, product.stock, product.imageURL])
+    }, [product.name, product.price, product.stock, product.description, product.imageURL])
 
     const handleSaveChanges = async (productId) => {
         try {
@@ -118,7 +118,7 @@ const EditProduct = () => {
             <div className="flex flex-col justify-center items-start bg-slate-50 rounded-sm p-3 w-3/6 space-y-5">
               <div className="flex flex-row justify-start w-full">
                 <div className="relative">
-                    <img src={product.imageURL} alt={`${product.name}`} className="h-40 w-40 border-2 border-gray-500" />
+                    <img src={product.imageURL} alt={`${product.name}`} className="h-40 w-56" />
                 </div>
                 <div className="ml-10 relative">
                     <label htmlFor="image" className="cursor-pointer bg-slate-500 hover:bg-slate-400 transition-colors duration-100 ease-in-out text-white px-1 py-1 mt-2 rounded">

@@ -1,4 +1,5 @@
 import { useContext, useState, useEffect, createContext } from "react";
+import jwtDecode from "jwt-decode";
 
 const AuthContext = createContext();
 
@@ -6,31 +7,50 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState({
       loggedIn: false,
       role: "",
+      _id: "",
+      fName: "",
+      lName: "",
+      email: ""
     });
     const [loading, setLoading] = useState(true);
   
     useEffect(() => {
-      // Check if the user has a token and role in cookies (user is logged in)
       const token = getCookie("accessToken");
       const role = getCookie("userRole");
+      const _id = getCookie("_id");
+      const fName = getCookie("fName");
+      const lName = getCookie("lName");
+      const email = getCookie("email");
+
       if (token && role) {
-        // You might want to validate the token here before setting the user state
         setUser({
           loggedIn: true,
           role: role,
+          _id: _id,
+          fName: fName,
+          lName: lName,
+          email: email
         });
       }
       setLoading(false);
-    }, []); // Empty dependency array ensures this effect runs only once on component mount
+    }, []);
   
-    const loginUser = (role, token) => {
+    const loginUser = (role, token, _id, fName, lName, email) => {
       // Set the token and role in cookies instead of state
       setCookie("accessToken", token, { path: "/" });
       setCookie("userRole", role, { path: "/" });
+      setCookie("_id", _id, { path: "/" });
+      setCookie("fName", fName, { path: "/" });
+      setCookie("lName", lName, { path: "/" });
+      setCookie("email", email, { path: "/" });
   
       setUser({
         loggedIn: true,
         role: role,
+        _id: _id,
+        fName: fName,
+        lName: lName,
+        email: email
       });
       setLoading(false);
     };
@@ -39,18 +59,44 @@ export const AuthProvider = ({ children }) => {
       // Clear the token and role from the cookies
       deleteCookie("accessToken");
       deleteCookie("userRole");
+      deleteCookie("_id");
+      deleteCookie("fName");
+      deleteCookie("lName");
+      deleteCookie("email");
   
       // Update the user state to indicate that the user is logged out
       setUser({
         loggedIn: false,
         role: "",
+        _id: "",
+        fName: "",
+        lName: "",
+        email: ""
       });
+    };
+
+    const updateUser = (data) => {
+      if (data.fName) {
+        setCookie('fName', data.fName,{path:'/'});
+      }
+      if (data.lName) {
+        setCookie('lName', data.lName,{path:'/'});
+      }
+      if (data.email) {
+        setCookie('email', data.email,{path:'/'});
+      }
+
+      setUser((prevUser) => ({
+        ...prevUser,
+        ...data
+      }));  
     };
   
     const contextData = {
       user,
       loginUser,
       logoutUser,
+      updateUser
     };
   
     return (
