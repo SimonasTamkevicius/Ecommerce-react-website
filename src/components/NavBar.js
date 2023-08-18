@@ -237,6 +237,7 @@ const NavBar = () => {
                   name="searchInput"
                   value={searchValue}
                   onChange={handleChange}
+                  autoComplete="off"
                 />
                 <button
                   type="submit"
@@ -336,6 +337,7 @@ const NavBar = () => {
               name="mobileSearchInput"
               value={searchValue}
               onChange={handleChange}
+              autoComplete="off"
             />
             <button
               type="submit"
