@@ -18,7 +18,7 @@ import OrderSuccess from "./components/OrderSuccess";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       <AuthProvider>
         <Context>
           <div className="App">
