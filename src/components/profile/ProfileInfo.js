@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { FaRegEdit,  } from "react-icons/fa";
 import { ImCancelCircle } from "react-icons/im";
 import ViewUserProfile from './ViewUserProfile';

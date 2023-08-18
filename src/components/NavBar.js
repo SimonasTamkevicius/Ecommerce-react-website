@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../utils/AuthContext";
-import axios from "../api/axios";
+import axiosInstance from "../api/axiosInstance";
 
 const NavBar = () => {
   const {
@@ -13,7 +13,7 @@ const NavBar = () => {
   } = CartState();  
 
   useEffect(() => {
-    axios
+    axiosInstance
       .get("/products")
       .then(function (response) {
         setProducts(response.data);

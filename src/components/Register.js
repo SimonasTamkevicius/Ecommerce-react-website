@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from '../api/axios';
+import axiosInstance from '../api/axiosInstance';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../utils/AuthContext'
 
@@ -22,7 +22,7 @@ function Register() {
       formData.append('email', email);
       formData.append('password', password);
 
-      axios
+      axiosInstance
         .post('/register', formData, {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',

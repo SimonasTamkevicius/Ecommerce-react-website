@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from '../../api/axios';
+import axiosInstance from '../../api/axiosInstance';
 import { Link, useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
@@ -50,7 +50,7 @@ const AddProduct = () => {
       formData.append('description', description)
       formData.append('image', image);
     
-      axios
+      axiosInstance
         .post('/products', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',

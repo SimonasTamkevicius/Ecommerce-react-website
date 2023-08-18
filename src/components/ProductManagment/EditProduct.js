@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import axios from '../../api/axios';
+import axiosInstance from '../../api/axiosInstance';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const EditProduct = () => {
@@ -62,7 +62,7 @@ const EditProduct = () => {
           formData.append('stock', stock);
           formData.append('description', description)
           formData.append('image', image);
-        axios
+        axiosInstance
           .put("/products", formData, {
             headers: {
               'Content-Type': 'multipart/form-data'

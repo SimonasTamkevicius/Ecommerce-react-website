@@ -6,7 +6,7 @@ import React, {
   useContext,
 } from "react";
 import { cartReducer, productReducer } from "./Reducers";
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 
 const Cart = createContext();
 
@@ -14,7 +14,7 @@ const Context = ({ children }) => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios
+    axiosInstance
       .get("/products")
       .then(function (response) {
         setProducts(response.data);

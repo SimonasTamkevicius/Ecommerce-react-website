@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { CartState } from "../../context/Context";
 import SingleProduct from "./SingleProduct";
 import Filters from "../Filters";
-import axios from "../../api/axios";
+import axiosInstance from "../../api/axiosInstance";
 import { animateScroll as scroll } from "react-scroll";
 
 const ItemsComponent = () => {
@@ -18,7 +18,7 @@ const ItemsComponent = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    axios
+    axiosInstance
       .get("/products")
       .then(function (response) {
         setLoading(false);

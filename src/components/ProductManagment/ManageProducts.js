@@ -1,6 +1,6 @@
 import { CartState } from "../../context/Context";
 import React, { useState, useEffect } from "react";
-import axios from '../../api/axios';
+import axiosInstance from "../../api/axiosInstance";
 import { Link } from "react-router-dom";
 import { AiFillDelete } from "react-icons/ai";
 import { FaRegEdit } from "react-icons/fa";
@@ -17,7 +17,7 @@ function ManageProducts() {
   const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
-    axios
+    axiosInstance
       .get("/products")
       .then(function (response) {
         setLoading(false);
@@ -31,7 +31,7 @@ function ManageProducts() {
   
   const handleDeleteClick = (productName, imageName) => {
     console.log(productName);
-    axios
+    axiosInstance
       .delete('/products', {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "../../api/axios";
+import axiosInstance from "../../api/axiosInstance";
 import { useAuth } from "../../utils/AuthContext";
 
 const EditUserProfile = () => {
@@ -51,7 +51,7 @@ const EditUserProfile = () => {
       formData.append("fName", fName);
       formData.append("lName", lName);
       formData.append("email", email);
-      axios.put("/edit-user", formData, {
+      axiosInstance.put("/edit-user", formData, {
         headers: {
           "Content-Type": "application/json",
         },

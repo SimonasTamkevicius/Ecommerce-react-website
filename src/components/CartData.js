@@ -3,7 +3,7 @@ import { CartState } from "../context/Context";
 import { AiFillDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { Form } from "react-bootstrap";
-import axios from "../api/axios";
+import axiosInstance from "../api/axiosInstance";
 
 const CartData = () => {
   const {
@@ -35,7 +35,7 @@ const CartData = () => {
   const handleClick = () => {
     console.log(cart);
   
-    axios.post("/create-checkout-session", { cart }, {
+    axiosInstance.post("/create-checkout-session", { cart }, {
       headers: {
         'Content-Type': 'application/json',
       },
