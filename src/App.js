@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import Cart from "./components/Cart";
 import NavBar from "./components/NavBar";
@@ -18,7 +18,7 @@ import OrderSuccess from "./components/OrderSuccess";
 
 function App() {
   return (
-    <BrowserRouter basename="/">
+    <HashRouter>
       <AuthProvider>
         <Context>
           <div className="App">
@@ -43,7 +43,7 @@ function App() {
           </div>
         </Context>
       </AuthProvider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
