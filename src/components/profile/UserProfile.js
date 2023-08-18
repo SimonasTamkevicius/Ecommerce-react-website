@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../utils/AuthContext';
-import axios from '../../api/axiosInstance';
+import axiosInstance from '../../api/axiosInstance';
 import LoggedInProfile from './LoggedInProfile';
 
 const UserProfile = () => {
@@ -28,7 +28,7 @@ const UserProfile = () => {
       formData.append('email', email);
       formData.append('password', password);
 
-      axios
+      axiosInstance
         .post('/login', formData, {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
