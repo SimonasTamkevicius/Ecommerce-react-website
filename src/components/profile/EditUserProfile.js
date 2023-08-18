@@ -24,7 +24,7 @@ const EditUserProfile = () => {
     setLName(user.lName);
     setEmail(user.email);
     setLoading(false);
-  }, [user.fName, user.lName, user.email]);
+  }, [user.fName, user.lName, user.email, user._id]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;

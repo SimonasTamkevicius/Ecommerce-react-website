@@ -6,7 +6,7 @@ import ProfileInfo from './ProfileInfo'
 const LoggedInProfile = () => {
 
     const { user } = useAuth();
-    const [myProfileClick, setMyProfileClick] = useState(false);
+    // const [myProfileClick, setMyProfileClick] = useState(false);
     const [currentUser, setCurrentUser] = useState(user);
 
     useEffect(() => {
@@ -26,8 +26,9 @@ const LoggedInProfile = () => {
         greetingMsg = "Good evening";
     }
 
+    // will implement when I add more items to the menu
     const handleMyProfileClick = () => {
-        setMyProfileClick(true);
+        // setMyProfileClick(true);
     }
 
   return (

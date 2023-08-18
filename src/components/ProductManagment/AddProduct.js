@@ -104,7 +104,7 @@ const AddProduct = () => {
       <div className='flex flex-col mx-20'>
         <h1>Add Product</h1>
         {/* Form */}
-        <form className='pt-10 w-50 bg-slate-100 p-4' onSubmit={handleSubmit}>
+        <form className='pt-10 w-full md:w-1/2 bg-slate-100 p-4 mb-20' onSubmit={handleSubmit}>
           <label className='text-lg md:text-xl font-medium pb-2'>
             Product Name
           </label>

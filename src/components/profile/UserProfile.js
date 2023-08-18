@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../utils/AuthContext';
 import axiosInstance from '../../api/axiosInstance';
 import LoggedInProfile from './LoggedInProfile';
 
 const UserProfile = () => {
-  const [message, setMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -41,7 +42,11 @@ const UserProfile = () => {
           navigate('/UserProfile');
         })
         .catch(function (error) {
-          setMessage('Failed to register user');
+          setErrorMessage('Failed to login user.');
+          setTimeout(() => {
+            setErrorMessage("");
+            navigate("/UserProfile")
+          }, 1500);
           console.error('Error:', error);
         });
     }
@@ -49,6 +54,11 @@ const UserProfile = () => {
 
   return (
     <div>
+      {errorMessage.length > 0 && (
+        <div className="fixed inset-0 z-10 flex justify-center items-center bg-gray-500 bg-opacity-80">
+          <p className="text-white text-xl">{errorMessage}</p>
+        </div>
+      )}
       {!user.loggedIn ? (
       <div className='lg:grid lg:grid-cols-3 lg:gap-4 py-10 px-10 md:px-20 md:py-20'>
         <div className='flex flex-col w-80 h-50'>

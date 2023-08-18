@@ -13,7 +13,6 @@ const ItemsComponent = () => {
 
   const [products, setProducts] = useState(initialProducts);
   const [loading, setLoading] = useState(true);
-  const [numProducts, setNumProducts] = useState(0);
   const productsPerPage = 12;
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -31,8 +30,6 @@ const ItemsComponent = () => {
   }, []);
 
   useEffect(() => {
-    const sortedProducts = reorderProducts();
-    setNumProducts(sortedProducts.length);
     setCurrentPage(1);
   }, [sort, byStock, bySearch, products]);
 

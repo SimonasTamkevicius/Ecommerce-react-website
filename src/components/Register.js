@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axiosInstance from '../api/axiosInstance';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../utils/AuthContext'
@@ -9,7 +9,7 @@ function Register() {
   const [message, setMessage] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { user, loginUser } = useAuth();
+  const { loginUser } = useAuth();
 
   const navigate = useNavigate(); // Initialize useNavigate
 
