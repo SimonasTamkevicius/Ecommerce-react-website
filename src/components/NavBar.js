@@ -33,9 +33,6 @@ const NavBar = () => {
 
   const { user, logoutUser } = useAuth();
 
-  let sortProds = [];
-  console.log(sortProds);
-
   const navlinks = [
     {
       title: "HOME",
@@ -64,7 +61,7 @@ const NavBar = () => {
   ];
 
   const handleMenu = () => {
-    setOpen((prev) => !prev);
+    setOpen(!open);
   };
 
   useEffect(() => {
@@ -120,7 +117,6 @@ const NavBar = () => {
       );
       setSortedProds(sortProds);
     }
-    console.log(sortProds);
   }
 
   const handleFormSubmit = (e) => {
@@ -191,6 +187,7 @@ const NavBar = () => {
 
   const handleLogoutClick = () => {
     logoutUser();
+    window.location.reload();
   }
 
   const totalQty = cart.reduce((total, item) => total + item.qty, 0);
@@ -198,7 +195,7 @@ const NavBar = () => {
   return (
     <div className="bg-slate-50">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between md:px-4 md:pt-10">
+        <div className="flex items-center justify-between md:px-4 pt-10">
           {/* hamburger button */}
           <div className="-mr-2 flex lg:hidden">
             <button
@@ -263,6 +260,7 @@ const NavBar = () => {
               </form>
             </div>
             {/* Login and Register vs My Account and Logout  */}
+            <div className="hidden md:block">
             {user.loggedIn ? (
               <div className="flex flex-row space-x-3 mr-1 mt-3">
                 <Link to="UserProfile" className="no-underline text-black">
@@ -271,15 +269,16 @@ const NavBar = () => {
                 <p className="border-l-2 px-3 border-gray-600 hover:cursor-pointer" onClick={handleLogoutClick}>Logout</p>
               </div>
               ) : (
-                <div className="flex flex-row space-x-3 mr-1 mt-3">
-                  <Link to="UserProfile" className="no-underline text-black">
-                    <p className="hover:cursor-pointer">Login</p>
-                  </Link>
-                  <Link to="Register" className="no-underline text-black">
-                    <p className="border-l-2 px-3 border-gray-600 hover:cursor-pointer">Register</p>
-                  </Link>
-                </div>
-              )}
+              <div className="flex flex-row space-x-3 mr-1 mt-3">
+                <Link to="UserProfile" className="no-underline text-black">
+                  <p className="hover:cursor-pointer">Login</p>
+                </Link>
+                <Link to="Register" className="no-underline text-black">
+                  <p className="border-l-2 px-3 border-gray-600 hover:cursor-pointer">Register</p>
+                </Link>
+              </div>
+            )}
+            </div>
             <Link to="/cart">
               <button>
                 <img
@@ -291,7 +290,7 @@ const NavBar = () => {
             </Link>
             {cart.length === 0 ? (
               <div className="opacity-0">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+                <svg width="20" height="20">
                   <circle cx="10" cy="9" r="8" fill="white" />
                   <text
                     x="10"
@@ -307,12 +306,12 @@ const NavBar = () => {
             ) : (
               <div className="circle-container">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20">
-                  <circle cx="10" cy="9" r="8" fill="red" />
+                  <circle cx="10" cy="9" r="8" fill="#C2E7E4" />
                   <text
                     x="10"
-                    y="12"
+                    y="12.5"
                     textAnchor="middle"
-                    fill="white"
+                    fill="black"
                     fontSize="11"
                   >
                     {totalQty}
@@ -383,7 +382,7 @@ const NavBar = () => {
                     onClick={(event) => handleLinkClick(event, link)}
                   >
                     <p
-                      className="block py-3 px-4 text-gray-800 hover:bg-gray-200"
+                      className="block py-2 px-4 text-gray-800 hover:bg-gray-200"
                       onClick={() => {
                         handleMenu();
                       }}
@@ -392,6 +391,36 @@ const NavBar = () => {
                     </p>
                   </Link>
                 ))}
+                {user.loggedIn ? (
+                  <div>
+                    <p
+                      className="block py-2 px-4 text-gray-800 hover:bg-gray-200"
+                      onClick={() => {
+                        handleLogoutClick();
+                        handleMenu();
+                      }}
+                    >
+                      LOGOUT
+                    </p>
+                    <Link
+                      to="UserProfile"
+                      className="no-underline text-black"
+                    >
+                      <p className="block py-2 px-4 text-gray-800 hover:bg-gray-200" onClick={handleMenu}>
+                        MY ACCOUNT
+                      </p>
+                    </Link>
+                  </div>
+                ) : (
+                  <div>
+                    <Link to="UserProfile" className="no-underline text-black">
+                      <p className="block py-2 px-4 text-gray-800 hover:bg-gray-200" onClick={handleMenu}>LOGIN</p>
+                    </Link>
+                    <Link to="Register" className="no-underline text-black">
+                      <p className="block py-2 px-4 text-gray-800 hover:bg-gray-200" onClick={handleMenu}>REGISTER</p>
+                    </Link>
+                  </div>
+                )}
               </div>
             </div>
             <div className="flex-1 bg-gray-800 opacity-75"></div>

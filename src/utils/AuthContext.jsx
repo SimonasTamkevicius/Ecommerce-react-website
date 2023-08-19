@@ -72,6 +72,7 @@ export const AuthProvider = ({ children }) => {
         lName: "",
         email: ""
       });
+      sessionStorage.removeItem('cart');
     };
 
     const updateUser = (data) => {

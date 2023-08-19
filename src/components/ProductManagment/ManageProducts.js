@@ -17,6 +17,7 @@ function ManageProducts() {
     axiosInstance
       .get("/products")
       .then(function (response) {
+        console.log(response);
         setLoading(false);
         setProducts(response.data);
       })
@@ -71,7 +72,7 @@ function ManageProducts() {
         </div>
       )}
 
-      <div className="flex flex-row justify-between mx-20 my-2">
+      <div className="flex flex-row justify-between mx-10 md:mx-20 my-2">
         <Link to="/UserProfile" className="no-underline text-black mt-4">
           <p className="text-sm">User Profile</p>
         </Link>
@@ -84,11 +85,11 @@ function ManageProducts() {
 
       <div>
         {loading ? (
-          <div className="flex justify-center items-center bg-gray-500 bg-opacity-80">
-            <p className="text-white text-xl">Loading...</p>
+          <div className="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-80">
+            <div className="lds-ring-general"><div></div><div></div><div></div><div></div></div>
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mx-20 mt-4">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mx-10 md:mx-20 mt-4">
             {products.map((product, i) => (
               <div key={i} className="mb-4 hover:shadow-sm">
                 <div className="flex flex-col items-center justify-center bg-slate-50 rounded-sm p-3">

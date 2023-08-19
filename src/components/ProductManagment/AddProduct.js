@@ -92,7 +92,7 @@ const AddProduct = () => {
           <p className="text-white text-xl">{errorMessage}</p>
         </div>
       ) : null}
-      <div className='flex flex-row space-x-1 mt-3 ml-20'>
+      <div className='flex flex-row space-x-1 mt-3 ml-10 md:ml-20'>
         <Link to="/UserProfile" className="no-underline text-black">
           <p className="text-xs">User Profile</p>
         </Link>
@@ -101,7 +101,7 @@ const AddProduct = () => {
           <p className="text-xs">Manage Products</p>
         </Link>
       </div>
-      <div className='flex flex-col mx-20'>
+      <div className='flex flex-col mx-10 md:mx-20'>
         <h1>Add Product</h1>
         {/* Form */}
         <form className='pt-10 w-full md:w-1/2 bg-slate-100 p-4 mb-20' onSubmit={handleSubmit}>

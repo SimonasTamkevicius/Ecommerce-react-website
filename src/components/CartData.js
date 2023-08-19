@@ -12,7 +12,8 @@ const CartData = () => {
   } = CartState();
 
   const [subtotal, setSubtotal] = useState();
-  const [totalTax, setTotalTax] = useState();
+  // const [totalTax, setTotalTax] = useState();
+  const shipping = 10;
   const [total, setTotal] = useState();
   const [totalQuantity, setTotalQuantity] = useState();
 
@@ -20,11 +21,11 @@ const CartData = () => {
     setSubtotal(
       cart.reduce((acc, curr) => acc + Number(curr.price) * curr.qty, 0)
     );
-    setTotalTax(
-      cart.reduce((acc, curr) => acc + Number(curr.price) * curr.qty * 0.13, 0)
-    );
+    // setTotalTax(
+    //   cart.reduce((acc, curr) => acc + Number(curr.price) * curr.qty * 0.13, 0)
+    // );
     setTotal(
-      cart.reduce((acc, curr) => acc + Number(curr.price) * curr.qty * 1.13, 0)
+      cart.reduce((acc, curr) => acc + Number(curr.price) * curr.qty, 0)
     );
   }, [cart]);
 
@@ -166,12 +167,12 @@ const CartData = () => {
           <p className="flex font-semibold text-md pt-3">
             Subtotal: {subtotal !== undefined ? `$${subtotal.toFixed(2)}` : ""}
           </p>
-          <p className="font-semibold text-md">Shipping: Free</p>
-          <p className="font-semibold text-md">
+          <p className="font-semibold text-md">Shipping: ${shipping}.00</p>
+          {/* <p className="font-semibold text-md">
             Tax: {totalTax !== undefined ? `$${totalTax.toFixed(2)}` : ""}
-          </p>
+          </p> */}
           <p className="font-semibold text-2xl">
-            Total: {total !== undefined ? `$${total.toFixed(2)}` : ""}
+            Total: {total !== undefined ? `$${(total + 10).toFixed(2)}` : ""}
           </p>
           <div className="pt-3">
             <button className="p-2 font-semibold bg-black text-white rounded-md" onClick={handleClick}>

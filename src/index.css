@@ -105,3 +105,14 @@ code {
     margin: 0;
   }
 }
+
+button {
+  transition: border-left-width 0.1s ease-in-out, padding-left 0.2s ease-in-out;
+  border-color: gray;
+}
+
+.hovered {
+  border-left-width: 5px;
+  padding-left: 4px;
+  border-color: gray;
+}

@@ -98,7 +98,7 @@ const EditProduct = () => {
                 <p className="text-white text-xl">{errorMessage}</p>
               </div>
             )}
-            <div className='flex flex-row space-x-1 mt-3 ml-20'>
+            <div className='flex flex-row space-x-1 mt-3 ml-10 md:ml-20'>
                 <Link to="/UserProfile" className="no-underline text-black">
                 <p className="text-xs">User Profile</p>
                 </Link>
@@ -107,14 +107,14 @@ const EditProduct = () => {
                 <p className="text-xs">Manage Products</p>
                 </Link>
             </div>
-            <h1 className='ml-20 pt-3'>Edit Product</h1>
           </div>
           {loading && (
             <div className="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-80 z-10">
               <p className="text-white text-xl">Loading...</p>
             </div>
           )}
-          <div className='flex flex-col justify-center items-start mt-4 mx-20 mb-10'>
+          <div className='flex flex-col justify-center items-start mt-3 mx-10 md:mx-20 mb-10'>
+            <h1>Edit Product</h1>
             <div className="flex flex-col justify-center items-start bg-slate-50 rounded-sm p-3 w-full md:w-1/2 space-y-5">
               <div className="flex flex-col md:flex-row justify-start w-full space-y-3 md:space-y-0 md:items-center">
                 <div className="relative md:mr-10">

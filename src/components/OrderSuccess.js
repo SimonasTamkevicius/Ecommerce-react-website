@@ -1,7 +1,43 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import axiosInstance from "../api/axiosInstance";
+import { CartState } from "../context/Context";
+import { useAuth } from '../utils/AuthContext';
 
 const OrderSuccess = () => {
+  const { state: { cart }, clearSession } = CartState();
+  const { user } = useAuth();
+  const [orderProcessed, setOrderProcessed] = useState(false);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    const guestUser = { _id: "Guest" };
+
+    if (!orderProcessed) {
+      if (user) {
+        axiosInstance.post("/add-order", { cart, user })
+          .then(function (response) {
+            console.log(response);
+            clearSession();
+            setOrderProcessed(true);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      } else {
+        axiosInstance.post("/add-order", { cart, user: guestUser })
+          .then(function (response) {
+            console.log(response);
+            clearSession();
+            setOrderProcessed(true);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
+    }
+  }, []);
+
   return (
     <div className='flex flex-col ml-10 mt-10 space-y-5'>
       <h1>YOUR ORDER HAS BEEN RECEIVED.</h1>

@@ -38,7 +38,7 @@ function App() {
               <Route element={<ProtectedRoutesUser />}>
               </Route>
               <Route path="/SingleProductPage" element={<SingleProductPage />} />
-              <Route path="/OrderSuccess"element={<OrderSuccess />} />
+              <Route path="/OrderSuccess" element={<OrderSuccess />} />
             </Routes>
           </div>
         </Context>

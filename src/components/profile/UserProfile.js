@@ -68,11 +68,6 @@ const UserProfile = () => {
           <Link to='/Register' className='no-underline text-black'>
             <button className='pl-5 text-sm hover:cursor-pointer'>Create Account</button>
           </Link>}
-          {user.loggedIn && user.role === "Admin" ? (
-            <Link to='/ManageProducts' className='no-underline text-black'>
-              <button className='pl-5 text-sm hover:cursor-pointer'>Manage Products</button>
-            </Link>
-          ) : null}
           <hr className='lg:w-80'></hr>
         </div>
         <div className='flex flex-col justify-start bg-gray-100 p-4 mt-10 md:mt-0'>
