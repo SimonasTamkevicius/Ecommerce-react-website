@@ -89,7 +89,7 @@ const SingleProductPage = () => {
             <div className='flex flex-row justify-between'>
               <h2 className="text-xl font-bold mb-2">${prod.price}</h2>
               <h2 className='text-lg font-semibold mb-2'>
-                {prod.stock >= 10 ? <span className='text-sm mb-2'>10+ Available</span> : prod.stock}
+                {prod.stock >= 10 ? <span className='text-sm mb-2'>10+ Available</span> : (<div className='flex flex-row justify-center space-x-1'><p>{prod.stock}</p> <p className='text-sm pt-1 font-normal'>in stock</p></div>)}
               </h2>
             </div>
             <div className='w-full flex flex-col'>

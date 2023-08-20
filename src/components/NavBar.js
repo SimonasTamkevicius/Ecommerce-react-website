@@ -244,17 +244,20 @@ const NavBar = () => {
                 </button>
                 {focus && 
                   <div className="z-40 position absolute bg-gray-100 w-96 rounded-sm">
-                    {sortedProducts.map((prod, i) => (
-                      <Link
-                        to="/SingleProductPage"
-                        className="no-underline text-black"
-                        state={{ prod: prod }}
-                        key={i}
-                        onClick={() => {setFocus(false)}}
-                      >
-                        <p className="mx-2 my-2 hover:bg-gray-200 hover:cursor-pointer p-2">{prod.name}</p>
-                      </Link>
-                    ))}
+                  {sortedProducts.map((prod, i) => (
+                    <Link
+                      to="/SingleProductPage"
+                      className="no-underline text-black"
+                      state={{ prod: prod }}
+                      key={i}
+                      onClick={() => {
+                        setFocus(false);
+                        setSearchValue("");
+                      }}
+                    >
+                      <p className="mx-2 my-2 hover:bg-gray-200 hover:cursor-pointer p-2">{prod.name}</p>
+                    </Link>
+                  ))}
                   </div>
                 }
               </form>
@@ -352,7 +355,10 @@ const NavBar = () => {
                     className="no-underline text-black"
                     state={{ prod: prod }}
                     key={i}
-                    onClick={() => {setFocus(false)}}
+                    onClick={() => {
+                      setFocus(false);
+                      setSearchValue("");
+                    }}
                   >
                     <p className="mx-2 my-2 hover:bg-gray-200 hover:cursor-pointer p-2">{prod.name}</p>
                   </Link>

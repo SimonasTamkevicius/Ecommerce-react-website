@@ -172,7 +172,7 @@ const CartData = () => {
             Tax: {totalTax !== undefined ? `$${totalTax.toFixed(2)}` : ""}
           </p> */}
           <p className="font-semibold text-2xl">
-            Total: {total !== undefined ? `$${(total + 10).toFixed(2)}` : ""}
+            Total: {total !== undefined ? `$${(total + (subtotal === 0 ? 0 : 10)).toFixed(2)}` : ""}
           </p>
           <div className="pt-3">
             <button className="p-2 font-semibold bg-black text-white rounded-md" onClick={handleClick}>

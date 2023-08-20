@@ -85,7 +85,7 @@ const HomePage = () => {
                     <img
                       src={category.image}
                       alt={category.title}
-                      className="mb-2 w-80 h-80"
+                      className="mb-2 w-80 h-80 shadow-lg rounded"
                     />
                   )}
                   {category.title}
@@ -121,7 +121,7 @@ const HomePage = () => {
                     <img
                       src={category.image}
                       alt={category.title}
-                      className="mb-2 w-full h-full"
+                      className="mb-2 w-full h-full shadow-md rounded-sm"
                     />
                   )}
                   {category.title}
@@ -131,7 +131,7 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-      <div className="position relative bottom-0 w-full mt-32">
+      <div className="position relative bottom-0 w-full mt-32 lg:mt-48">
         <Footer />
       </div>
     </>
