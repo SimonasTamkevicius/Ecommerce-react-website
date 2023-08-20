@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { TbSquareArrowLeft, TbSquareArrowRight } from "react-icons/tb";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa"
 import { CartState } from "../context/Context";
+import Footer from "./Footer"
 
 const HomePage = () => {
   const { productDispatch } = CartState();
@@ -56,7 +57,7 @@ const HomePage = () => {
         Shop by Category
       </h1>
       {/* mobile gallery */}
-      <div className="flex justify-center pt-10 lg:hidden">
+      <div className="flex justify-center pt-20 lg:hidden">
         <div className="flex justify-between">
           <button
             className={`category ${
@@ -65,7 +66,7 @@ const HomePage = () => {
             onClick={handlePrevious}
             disabled={activeIndex === 0}
           >
-            <TbSquareArrowLeft className="w-10 h-10" />
+            <FaAngleLeft className="text-4xl" />
           </button>
           <div className="flex gallery justify-center">
             {categories.map((category, index) => (
@@ -76,7 +77,7 @@ const HomePage = () => {
                 }`}
               >
                 <Link
-                  className="block py-2 px-4 underline text-center text-gray-800 hover:text-gray-500"
+                  className="block py-2 px-4 no-underline text-center text-gray-800 hover:text-gray-500"
                   to={category.link}
                   onClick={handleClick(category.title)}
                 >
@@ -84,7 +85,7 @@ const HomePage = () => {
                     <img
                       src={category.image}
                       alt={category.title}
-                      className="mb-2 w-full h-full"
+                      className="mb-2 w-80 h-80"
                     />
                   )}
                   {category.title}
@@ -101,12 +102,12 @@ const HomePage = () => {
             onClick={handleNext}
             disabled={activeIndex === categories.length - 1}
           >
-            <TbSquareArrowRight className="w-10 h-10" />
+            <FaAngleRight className="text-4xl" />
           </button>
         </div>
       </div>
       {/* desktop gallery */}
-      <div className="justify-between px-10 pt-20 hidden lg:block">
+      <div className="justify-between px-10 pt-10 hidden lg:block">
         <div className="flex justify-center">
           <div className="flex gallery">
             {categories.map((category, index) => (
@@ -129,6 +130,9 @@ const HomePage = () => {
             ))}
           </div>
         </div>
+      </div>
+      <div className="position absolute bottom-0 w-full">
+        <Footer />
       </div>
     </>
   );

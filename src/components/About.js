@@ -2,7 +2,7 @@ import React from 'react'
 
 const About = () => {
   return (
-    <div className='py-10 px-36'>
+    <div className='py-10 mx-5 md:px-20 mb-20'>
         <h1>Welcome to The Bead Boutique!</h1>
 
         <p className='text-lg leading-7 mb-8'>
@@ -18,16 +18,16 @@ const About = () => {
         <h2 className='text-2xl font-bold mb-6'>What Sets Us Apart</h2>
 
         <ul className='list-disc list-inside mb-8'>
-            <li className='text-lg leading-7'>
+            <li className='text-lg leading-9'>
             <strong>Quality Craftsmanship:</strong> Each piece of bead jewelry is meticulously crafted by skilled artisans who take pride in their work. We pay attention to every detail to ensure that our jewelry meets the highest standards of quality.
             </li>
-            <li className='text-lg leading-7'>
+            <li className='text-lg leading-9'>
             <strong>Unique Designs:</strong> Our collection features a wide range of bead jewelry designs, from delicate and minimalist pieces to bold and statement-making creations. We strive to offer a diverse selection that caters to different tastes and occasions.
             </li>
-            <li className='text-lg leading-7'>
+            <li className='text-lg leading-9'>
             <strong>Premium Materials:</strong> We source our beads and materials from trusted suppliers who provide high-quality gemstones, crystals, glass beads, and more. We believe that using the finest materials enhances the beauty and durability of our jewelry.
             </li>
-            <li className='text-lg leading-7'>
+            <li className='text-lg leading-9'>
             <strong>Customer Satisfaction:</strong> Your satisfaction is our top priority. We are committed to providing excellent customer service and ensuring that your shopping experience with us is smooth, enjoyable, and secure. If you have any questions or need assistance, our friendly team is here to help.
             </li>
         </ul>

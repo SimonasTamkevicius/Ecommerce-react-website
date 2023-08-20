@@ -60,7 +60,7 @@ const UserOrders = () => {
       )}
       {orders.map((order, i) => (
         <div key={i} className='mb-10'>
-            <div className='grid grid-cols-3 shadow-md rounded-md md:mx-4'>
+            <div className='grid grid-cols-3 shadow-md rounded-md mx-2 md:mx-4 w-80 md:w-full'>
                 {/* Display order information */}
                 <div className='col-span-3 flex flex-col md:flex-row flex-wrap justify-between items-center shadow-sm px-3 pt-3 rounded-b-md'>
                     <p className='text-md'><b>{order.date}</b></p>
@@ -74,7 +74,7 @@ const UserOrders = () => {
                     </p>
                 </div>
                 {order.viewOrder &&
-                    <div className='col-span-3 flex flex-row flex-wrap justify-center space-x-3'>
+                    <div className='col-span-3 flex flex-row flex-wrap justify-center mx-auto w-80 space-x-2 md:w-full md:space-x-5'>
                         {order.items.map((item, j) => (
                             <div key={j} className='flex flex-col items-center mb-1'>
                                 <div className='position relative pt-4'>
@@ -102,7 +102,7 @@ const UserOrders = () => {
                                             state={{ prod: product }}
                                             key={item.productId}
                                         >
-                                            <p className='text-xs mb-1' style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '15ch' }}>{item.name}</p>
+                                            <p className='text-xs mb-1' style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '12ch' }}>{item.name}</p>
                                         </Link>
                                         );
                                     }
