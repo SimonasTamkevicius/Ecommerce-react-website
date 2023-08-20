@@ -131,7 +131,7 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-      <div className="position absolute bottom-0 w-full">
+      <div className="position relative bottom-0 w-full mt-32">
         <Footer />
       </div>
     </>

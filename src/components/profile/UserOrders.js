@@ -74,7 +74,7 @@ const UserOrders = () => {
                     </p>
                 </div>
                 {order.viewOrder &&
-                    <div className='col-span-3 flex flex-row flex-wrap justify-center mx-auto w-80 space-x-2 md:w-full md:space-x-5'>
+                    <div className='col-span-3 flex flex-row flex-wrap justify-center mx-auto md:p-2 w-80 space-x-2 md:w-full md:space-x-5'>
                         {order.items.map((item, j) => (
                             <div key={j} className='flex flex-col items-center mb-1'>
                                 <div className='position relative pt-4'>
