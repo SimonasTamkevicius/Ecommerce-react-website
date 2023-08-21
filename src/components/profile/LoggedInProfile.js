@@ -4,6 +4,7 @@ import { useAuth } from '../../utils/AuthContext';
 import ProfileInfo from './ProfileInfo';
 import UserOrders from './UserOrders';
 import ManageProducts from '../ProductManagment/ManageProducts';
+import DisplayUsers from './DisplayUsers';
 
 const LoggedInProfile = () => {
   const { user } = useAuth();
@@ -38,18 +39,21 @@ const LoggedInProfile = () => {
     setMyProfileClick(true);
     setMyOrdersClick(false);
     setUsersClick(false);
+    setManageProdsClick(false);
   };
 
   const handleOrdersClick = () => {
     setMyOrdersClick(true);
     setMyProfileClick(false);
     setUsersClick(false);
+    setManageProdsClick(false);
   };
 
   const handleUsersClick = () => {
     setUsersClick(true);
     setMyProfileClick(false);
     setMyOrdersClick(false);
+    setManageProdsClick(false);
   }
 
   const handleManageProdClick = () => {
@@ -85,7 +89,6 @@ const LoggedInProfile = () => {
             <div>
               {user.role === 'Admin' ? (
                 <div>
-                    {/* <Link to='/ManageProducts' className='no-underline text-gray-800'> */}
                     <button
                         className={`flex justify-start pl-4 text-sm ${isHoveredManageProds ? 'hovered' : ''}`}
                         onMouseEnter={() => setIsHoveredManageProds(true)}
@@ -96,7 +99,7 @@ const LoggedInProfile = () => {
                     </button>
                     {/* </Link> */}
                     <button
-                        className={`flex justify-start pl-4 text-sm pt-3 ${isHoveredUsers ? 'hovered' : ''}`}
+                        className={`flex justify-start pl-4 text-sm mt-3 ${isHoveredUsers ? 'hovered' : ''}`}
                         onMouseEnter={() => setIsHoveredUsers(true)}
                         onMouseLeave={() => setIsHoveredUsers(false)}
                         onClick={handleUsersClick}
@@ -121,9 +124,9 @@ const LoggedInProfile = () => {
           </div>
           <div className='py-10'>
             {myProfileClick && <ProfileInfo />}
-            {myOrdersClick ? <UserOrders /> : null}
+            {myOrdersClick && <UserOrders />}
             {manageProdsClick && <ManageProducts />}
-            {}
+            {usersClick && <DisplayUsers />}
           </div>
         </div>
       </div>

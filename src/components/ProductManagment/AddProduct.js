@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import axiosInstance from '../../api/axiosInstance';
-import { Link, useNavigate } from "react-router-dom";
-
 const AddProduct = () => {
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
@@ -14,8 +12,6 @@ const AddProduct = () => {
     const [successMessage, setSuccessMessage] = useState('');
 
     const [selectedImageName, setSelectedImageName] = useState('');
-
-    const navigate = useNavigate();
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -62,7 +58,7 @@ const AddProduct = () => {
           setSuccessMessage("Product Added Successfully!");
           setTimeout(() => {
             setSuccessMessage("");
-            navigate("/ManageProducts");
+            window.location.reload();
           }, 1500);
         })
         .catch(function (error) {
@@ -70,7 +66,7 @@ const AddProduct = () => {
           setErrorMessage({error})
           setTimeout(() => {
             setErrorMessage("");
-            navigate("/ManageProducts");
+            window.location.reload();
           }, 1500);
         });    
   };
@@ -92,19 +88,10 @@ const AddProduct = () => {
           <p className="text-white text-xl">{errorMessage}</p>
         </div>
       ) : null}
-      <div className='flex flex-row space-x-1 mt-3 ml-10 md:ml-20'>
-        <Link to="/UserProfile" className="no-underline text-black">
-          <p className="text-xs">User Profile</p>
-        </Link>
-        <p className='text-xs'>/</p>
-        <Link to="/ManageProducts" className="no-underline text-black">
-          <p className="text-xs">Manage Products</p>
-        </Link>
-      </div>
       <div className='flex flex-col mx-10 md:mx-20'>
         <h1>Add Product</h1>
         {/* Form */}
-        <form className='pt-10 w-full md:w-1/2 bg-slate-100 p-4 mb-20' onSubmit={handleSubmit}>
+        <form className='pt-10 w-full bg-slate-100 p-4 mb-20' onSubmit={handleSubmit}>
           <label className='text-lg md:text-xl font-medium pb-2'>
             Product Name
           </label>

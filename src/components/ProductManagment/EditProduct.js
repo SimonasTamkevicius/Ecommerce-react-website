@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import axiosInstance from '../../api/axiosInstance';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-const EditProduct = () => {
+const EditProduct = (props) => {
 
-    const location = useLocation();
-    const { product } = location.state;
-    const navigate = useNavigate();
+    const { product } = props;
 
     const [loading, setLoading] = useState(true);
 
@@ -72,7 +69,7 @@ const EditProduct = () => {
           setSuccessMessage("Product Updated Successfully!");
           setTimeout(() => {
             setSuccessMessage("");
-            navigate("/ManageProducts")
+            window.location.reload();
           }, 1500);
         } catch (error) {
           setLoading(false);
@@ -84,6 +81,10 @@ const EditProduct = () => {
           }, 1500);
         }
     };
+
+    const handleCancelClick = () => {
+      window.location.reload();
+    }
 
     return (
         <div>
@@ -98,15 +99,6 @@ const EditProduct = () => {
                 <p className="text-white text-xl">{errorMessage}</p>
               </div>
             )}
-            <div className='flex flex-row space-x-1 mt-3 ml-10 md:ml-20'>
-                <Link to="/UserProfile" className="no-underline text-black">
-                <p className="text-xs">User Profile</p>
-                </Link>
-                <p className='text-xs'>/</p>
-                <Link to="/ManageProducts" className="no-underline text-black">
-                <p className="text-xs">Manage Products</p>
-                </Link>
-            </div>
           </div>
           {loading && (
             <div className="fixed inset-0 flex justify-center items-center bg-gray-500 bg-opacity-80 z-10">
@@ -115,7 +107,7 @@ const EditProduct = () => {
           )}
           <div className='flex flex-col justify-center items-start mt-3 mx-10 md:mx-20 mb-10'>
             <h1>Edit Product</h1>
-            <div className="flex flex-col justify-center items-start bg-slate-50 rounded-sm p-3 w-full md:w-1/2 space-y-5">
+            <div className="flex flex-col justify-center items-start bg-slate-50 rounded-sm p-3 w-full space-y-5">
               <div className="flex flex-col md:flex-row justify-start w-full space-y-3 md:space-y-0 md:items-center">
                 <div className="relative md:mr-10">
                   <img src={product.imageURL} alt={`${product.name}`} className="h-40 w-56" />
@@ -188,11 +180,9 @@ const EditProduct = () => {
                 >
                   Save Changes
                 </button>
-                <Link to="/ManageProducts" className="no-underline text-black mt-3">
-                  <button className="bg-red-200 hover:cursor-pointer hover:bg-red-300 p-2 rounded-md transition-colors duration-100 ease-in-out">
-                    Cancel
-                  </button>
-                </Link>
+                <button className="bg-red-200 hover:cursor-pointer hover:bg-red-300 mt-3 p-2 rounded-md transition-colors duration-100 ease-in-out" onClick={handleCancelClick}>
+                  Cancel
+                </button>
               </div>
             </div>
           </div>
