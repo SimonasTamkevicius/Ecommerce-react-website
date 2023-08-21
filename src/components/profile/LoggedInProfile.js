@@ -3,15 +3,19 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../utils/AuthContext';
 import ProfileInfo from './ProfileInfo';
 import UserOrders from './UserOrders';
+import ManageProducts from '../ProductManagment/ManageProducts';
 
 const LoggedInProfile = () => {
   const { user } = useAuth();
   const [myProfileClick, setMyProfileClick] = useState(true);
   const [myOrdersClick, setMyOrdersClick] = useState(false);
+  const [usersClick, setUsersClick] = useState(false);
+  const [manageProdsClick, setManageProdsClick] = useState(false);
   const [currentUser, setCurrentUser] = useState(user);
   const [isHoveredManageProds, setIsHoveredManageProds] = useState(false);
   const [isHoveredProfile, setIsHoveredProfile] = useState(false);
   const [isHoveredOrders, setIsHoveredOrders] = useState(false);
+  const [isHoveredUsers, setIsHoveredUsers] = useState(false);
 
   useEffect(() => {
     setCurrentUser(user);
@@ -33,12 +37,27 @@ const LoggedInProfile = () => {
   const handleMyProfileClick = () => {
     setMyProfileClick(true);
     setMyOrdersClick(false);
+    setUsersClick(false);
   };
 
   const handleOrdersClick = () => {
     setMyOrdersClick(true);
     setMyProfileClick(false);
+    setUsersClick(false);
   };
+
+  const handleUsersClick = () => {
+    setUsersClick(true);
+    setMyProfileClick(false);
+    setMyOrdersClick(false);
+  }
+
+  const handleManageProdClick = () => {
+    setManageProdsClick(true);
+    setMyProfileClick(false);
+    setMyOrdersClick(false);
+    setUsersClick(false);
+  }
 
   return (
     <div>
@@ -65,15 +84,26 @@ const LoggedInProfile = () => {
           {user.loggedIn ? (
             <div>
               {user.role === 'Admin' ? (
-                <Link to='/ManageProducts' className='no-underline text-black'>
-                  <button
-                    className={`flex justify-start pl-4 text-sm ${isHoveredManageProds ? 'hovered' : ''}`}
-                    onMouseEnter={() => setIsHoveredManageProds(true)}
-                    onMouseLeave={() => setIsHoveredManageProds(false)}
-                  >
-                    Manage Products
-                  </button>
-                </Link>
+                <div>
+                    {/* <Link to='/ManageProducts' className='no-underline text-gray-800'> */}
+                    <button
+                        className={`flex justify-start pl-4 text-sm ${isHoveredManageProds ? 'hovered' : ''}`}
+                        onMouseEnter={() => setIsHoveredManageProds(true)}
+                        onMouseLeave={() => setIsHoveredManageProds(false)}
+                        onClick={handleManageProdClick}
+                    >
+                        Manage Products
+                    </button>
+                    {/* </Link> */}
+                    <button
+                        className={`flex justify-start pl-4 text-sm pt-3 ${isHoveredUsers ? 'hovered' : ''}`}
+                        onMouseEnter={() => setIsHoveredUsers(true)}
+                        onMouseLeave={() => setIsHoveredUsers(false)}
+                        onClick={handleUsersClick}
+                    >
+                        Users
+                    </button>
+                </div>
               ) : null}
             </div>
           ) : (
@@ -90,8 +120,10 @@ const LoggedInProfile = () => {
             <h1 className='text-3xl'>{greetingMsg} {currentUser.fName}!</h1>
           </div>
           <div className='py-10'>
-            {myProfileClick ? <ProfileInfo /> : null}
+            {myProfileClick && <ProfileInfo />}
             {myOrdersClick ? <UserOrders /> : null}
+            {manageProdsClick && <ManageProducts />}
+            {}
           </div>
         </div>
       </div>

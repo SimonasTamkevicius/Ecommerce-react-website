@@ -67,7 +67,7 @@ const UserOrders = () => {
                     <p className='text-md'>Order number: <b>{order.orderNumber}</b></p>
                     <p className='text-md'>Total Items: <b>{order.totalItems}</b></p>
                     <p
-                      className='text-md hover:cursor-pointer bg-gray-200 p-1 hover:bg-gray-300 rounded-sm transition-colors duration-150 ease-in-out'
+                      className='text-md md:text-sm hover:cursor-pointer border-2 border-gray-400 p-1 hover:bg-gray-400 hover:text-white rounded-sm transition-colors duration-150 ease-in-out'
                       onClick={() => toggleOrderView(i)}
                     >
                       {order.viewOrder ? "Hide Order" : "View Order"}
