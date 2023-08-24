@@ -1,4 +1,4 @@
-#React Ecommerce MERN Stack Application
+# React Ecommerce MERN Stack Application
 
 Welcome to the React MERN Stack Ecommerce Application! This application is built using the MERN (MongoDB, Express, React, Node.js) stack and is a fully functional ecommerce application.
 
