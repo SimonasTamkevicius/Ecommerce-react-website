@@ -325,7 +325,7 @@ const NavBar = () => {
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-center pt-10">
+      <div className="flex items-center justify-center py-4">
           <form
             ref={mobileFormRef}
             className="lg:hidden block relative"

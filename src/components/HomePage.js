@@ -60,11 +60,11 @@ const HomePage = () => {
       <div className="flex justify-center pt-20 lg:hidden">
         <div className="flex justify-between">
           <button
-            className={`category ${
-              activeIndex === 0 ? "text-gray-500 pl-4" : "pl-4"
-            }`}
-            onClick={handlePrevious}
-            disabled={activeIndex === 0}
+              className={`category ${
+                  activeIndex === 0 ? "text-gray-500 pl-4" : "pl-4"
+              }`}
+              onClick={handlePrevious}
+              disabled={activeIndex === 0}
           >
             <FaAngleLeft className="text-4xl" />
           </button>
