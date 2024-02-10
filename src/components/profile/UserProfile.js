@@ -3,12 +3,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../utils/AuthContext';
 import axiosInstance from '../../api/axiosInstance';
 import LoggedInProfile from './LoggedInProfile';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
 const UserProfile = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const { user, loginUser } = useAuth();
 
@@ -52,6 +55,10 @@ const UserProfile = () => {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div>
       {errorMessage.length > 0 && (
@@ -71,8 +78,8 @@ const UserProfile = () => {
           <hr className='lg:w-80'></hr>
         </div>
         <div className='flex flex-col justify-start bg-gray-100 p-4 mt-10 md:mt-0'>
-          <h3>Login</h3>
-          <form className='pt-10' onSubmit={handleSubmit}>
+          <h1 className='text-4xl font-medium'>Register</h1>
+          <form className='pt-3' onSubmit={handleSubmit}>
             <label className='text-lg md:text-xl font-medium pb-2'>
               Email
             </label>
@@ -84,21 +91,29 @@ const UserProfile = () => {
               name='email'
               value={email}
               onChange={handleChange}
-              className='w-full px-4 py-2 mb-4 border-2 border-black'
+              className='w-full px-2 py-2 mb-4 border-2 border-black'
             />
-            <label className='text-lg md:text-xl font-medium pb-2'>
-              Password
-            </label>
-            <input
-              required
-              type='password'
-              id='password'
-              placeholder='Enter password'
-              value={password}
-              onChange={handleChange}
-              name='password'
-              className='w-full px-4 py-2 mb-4 border-2 border-black'
-            />
+            <div className='relative'>
+              <label className='text-lg md:text-xl font-medium pb-2'>
+                Password
+              </label>
+              <input
+                required
+                type={showPassword ? "text" : "password"} 
+                id='password'
+                placeholder='Enter password'
+                value={password}
+                onChange={handleChange}
+                name='password'
+                className='w-full px-2 py-2 mb-4 border-2 border-black'
+              />
+              <span
+                className="absolute right-3 top-12 cursor-pointer"
+                onClick={togglePasswordVisibility}
+              >
+                {showPassword ? <AiOutlineEye className='text-xl' /> : <AiOutlineEyeInvisible className='text-xl' />}
+              </span>
+            </div>
             <div className='flex justify-end'>
               <button
                 className='bg-black text-white text-lg px-8 py-2 hover:bg-gray-600'
@@ -112,7 +127,7 @@ const UserProfile = () => {
             <button>Forgot password?</button>
           </div>
         </div>
-        <div className='flex flex-col border-2 mt-10 md:mt-0 p-4 w-100 md:w-[250px] md:h-[200px]'>
+        <div className='flex flex-col border-2 mt-10 p-4 w-100 md:w-[250px] md:h-[200px] md:mt-10 lg:mt-0'>
           <h3>New Customers</h3>
           <p className='text-sm'>Create a free account to make checking out faster and easier!</p>
           <div className='flex justify-end my-2'>

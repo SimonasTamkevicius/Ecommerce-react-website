@@ -34,12 +34,16 @@ const UserOrders = () => {
         }
       })
       .then(function (response) {
-        setOrders(response.data.map(order => ({ ...order, viewOrder: false })));
+        const sortedOrders = response.data
+          .map(order => ({ ...order, viewOrder: false }))
+          .sort((a, b) => new Date(b.date) - new Date(a.date));
+  
+        setOrders(sortedOrders);
       })
       .catch(function (err) {
         console.log(err);
       });
-  }, [user._id, user.role]);
+  }, [user._id, user.role]);  
 
   const toggleOrderView = (orderIndex) => {
     const updatedOrders = [...orders];
@@ -58,7 +62,8 @@ const UserOrders = () => {
           <div className="lds-ring-general"><div></div><div></div><div></div><div></div></div>
         </div>
       )}
-      {orders.map((order, i) => (
+      {orders && orders.length > 0 ? (
+        orders.map((order, i) => (
         <div key={i} className='mb-10'>
             <div className='grid grid-cols-3 shadow-md rounded-md mx-2 md:mx-4 w-80 md:w-full'>
                 {/* Display order information */}
@@ -120,7 +125,12 @@ const UserOrders = () => {
                 </div>
             </div>
         </div>
-      ))}
+      ))
+      ) : (
+        <div className="flex justify-center items-center">
+          <p className="text-xl">No orders found</p>
+        </div>
+      )}
     </div>
   );
 };
